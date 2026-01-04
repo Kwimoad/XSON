@@ -6,7 +6,6 @@
 ![MIT License](https://img.shields.io/badge/License-MIT-green)
 ![JSON](https://img.shields.io/badge/Format-JSON-lightgrey)
 ![XML](https://img.shields.io/badge/Format-XML-lightgrey)
-![Language](https://img.shields.io/badge/README-FR%20%7C%20EN-blue)
 
 ## README Translation
 - [English](README_EN.md)
