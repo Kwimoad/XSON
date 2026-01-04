@@ -1,5 +1,7 @@
 # XSON
 
+[English](README_EN.md)
+
 **Module** : Echange de données et interopérabilité\
 **Encadrant** : Prof. El Habib NFAOUI\
 **Programme** : Master WISD 2025-2026
