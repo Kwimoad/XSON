@@ -1,5 +1,5 @@
 ## README Translation
-[• English](README_EN.md)
+- [English](README_EN.md)
 
 # XSON
 
