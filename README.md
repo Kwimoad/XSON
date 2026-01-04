@@ -1,6 +1,7 @@
-# XSON
+## README Translation
+[• English](README_EN.md)
 
-[English](README_EN.md)
+# XSON
 
 **Module** : Echange de données et interopérabilité\
 **Encadrant** : Prof. El Habib NFAOUI\
