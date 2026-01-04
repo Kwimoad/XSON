@@ -1,3 +1,13 @@
+![Language](https://img.shields.io/badge/README-FR%20%7C%20EN-blue)
+![Java](https://img.shields.io/badge/Java-21-orange?logo=openjdk)
+![JavaFX](https://img.shields.io/badge/JavaFX-21-blue)
+![Maven](https://img.shields.io/badge/Maven-3.x-C71A36?logo=apachemaven)
+![MySQL](https://img.shields.io/badge/MySQL-Database-4479A1?logo=mysql)
+![MIT License](https://img.shields.io/badge/License-MIT-green)
+![JSON](https://img.shields.io/badge/Format-JSON-lightgrey)
+![XML](https://img.shields.io/badge/Format-XML-lightgrey)
+![Language](https://img.shields.io/badge/README-FR%20%7C%20EN-blue)
+
 ## README Translation
 - [English](README_EN.md)
 
@@ -43,6 +53,21 @@ L'application propose des utilitaires sophistiqués pour la conversion de donné
 - Conversion en temps réel entre formats
 - Gestion des archives et fichiers
 - Interface intuitive avec thèmes personnalisés
+
+## Screenshots
+
+### 🔐 Écran de connexion
+![Login](docs/screenshots/loginUI.png)
+
+### 🖥️ Dashboard principal – Conversion JSON ↔ XML
+![Dashboard](docs/screenshots/mainDashboardUI.png)
+
+### 👤 Dashboard invité (essai sans compte)
+![Guest Dashboard](docs/screenshots/guestDashboardUI.png)
+
+### 📁 Gestion des archives
+![Archives](docs/screenshots/archivesUI.png)
+
 
 ## Technologies Utilisées
 - **Java 21** - Langage de programmation
