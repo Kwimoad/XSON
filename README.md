@@ -154,7 +154,12 @@ src/main/java/org/
 ```
 
 ## Vidéo Explicative
-Pour une démonstration complète des fonctionnalités de conversion JSON/XML et de l'interface utilisateur, consultez notre vidéo explicative disponible sur Drive.
+Pour une démonstration complète des fonctionnalités de conversion JSON/XML et de l'interface utilisateur, consultez notre vidéo explicative.
+<p align="center">
+  <a href="https://drive.google.com/file/d/1oI_3QkuAIBEmOg-V87i2aA7lPbxwvU8y/view?usp=sharing">
+    <img src="/docs/Carte de visite - XSON.gif" width="600"/>
+  </a>
+</p>
 
 ## Contributeurs
 - Aouad Abdelkarim
