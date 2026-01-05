@@ -16,6 +16,16 @@ import java.sql.Date;
 
 import static org.views.style.AppColors.*;
 
+/**
+ * AccountUI
+ *
+ * This class represents the user interface for managing a user account.
+ * It allows users to view and edit their personal information such as
+ * first name, last name, date of birth, gender, and email.
+ * Users can also open a window to change their password.
+ *
+ * The UI is built using JavaFX and organized with GridPane and VBox layouts.
+ */
 public class AccountUI extends Application {
 
     private VBox root;

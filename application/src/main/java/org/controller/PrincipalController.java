@@ -23,7 +23,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * Main controller of the application.
+ * It manages file import, save, conversion, and user actions.
+ */
 public class PrincipalController {
 
     private FileEntity model;
@@ -35,6 +38,13 @@ public class PrincipalController {
     private User user;
     private FileController fileController;
 
+    /**
+     * Constructor with user (logged mode).
+     *
+     * @param model
+     * @param stage
+     * @param user
+     */
     public PrincipalController(FileEntity model, Stage stage, User user) {
         this.model = model;
         this.stage = stage;
@@ -42,11 +52,20 @@ public class PrincipalController {
         this.fileController = new FileController();
     }
 
+    /**
+     * Constructor without user (guest mode).
+     *
+     * @param model
+     * @param stage
+     */
     public PrincipalController(FileEntity model, Stage stage) {
         this.model = model;
         this.stage = stage;
     }
 
+    /**
+     * Create a new empty file.
+     */
     public void newFile() {
         model.setLeftContent("");
         model.setRightContent("");
@@ -56,6 +75,9 @@ public class PrincipalController {
         isJson = false;
     }
 
+    /**
+     * Import an XML or JSON file.
+     */
     public void importFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Ouvrir un fichier");
@@ -91,6 +113,9 @@ public class PrincipalController {
         }
     }
 
+    /**
+     * Save the current file and its converted version.
+     */
     public void saveFile() {
         try {
             FileChooser fileChooser = new FileChooser();
@@ -184,6 +209,9 @@ public class PrincipalController {
         }
     }
 
+    /**
+     * Save file information in the database.
+     */
     private void addSavedFile(){
 
         String nameXml = xmlFile.getName();
@@ -206,6 +234,9 @@ public class PrincipalController {
 
     }
 
+    /**
+     * Open archives window.
+     */
     public void archiveAction() {
         int archivesID = archivesID(user);
         Map<java.sql.Date, List<FilePairInfo>> fileArchives = fileController.findFileByDate(archivesID);
@@ -219,6 +250,12 @@ public class PrincipalController {
         }
     }
 
+    /**
+     * Open account window.
+     *
+     * @param user
+     * @param accountButton
+     */
     public void accountAction(User user, Button accountButton) {
         Stage accountStage = new Stage();
         AccountUI accountUI = new AccountUI(user);
@@ -229,6 +266,11 @@ public class PrincipalController {
         }
     }
 
+    /**
+     * Logout and return to login window.
+     *
+     * @param logoutButton
+     */
     public void logoutAction(Button logoutButton){
         Stage currentStage = (Stage) logoutButton.getScene().getWindow();
         Stage loginStage = new Stage();
@@ -241,6 +283,9 @@ public class PrincipalController {
         currentStage.close();
     }
 
+    /**
+     * Convert JSON to XML.
+     */
     public void toXMLButtonAction() {
         model.setCurrentFileType(FileExtension.JSON);
         isXml = false;
@@ -252,6 +297,9 @@ public class PrincipalController {
         }
     }
 
+    /**
+     *
+     */
     public void toXmlWithApi(){
         if (model.getCurrentFileType() == FileExtension.JSON && !model.getRightContent().isEmpty()) {
             try {
@@ -285,6 +333,9 @@ public class PrincipalController {
         }
     }
 
+    /**
+     * Convert XML to JSON.
+     */
     public void toJSONButtonAction() {
         model.setCurrentFileType(FileExtension.XML);
         isXml = true;
@@ -296,6 +347,9 @@ public class PrincipalController {
         }
     }
 
+    /**
+     *
+     */
     public void toJsonWithApi(){
         if (model.getCurrentFileType() == FileExtension.XML && !model.getLeftContent().isEmpty()) {
             try {
@@ -309,6 +363,9 @@ public class PrincipalController {
         }
     }
 
+    /**
+     *
+     */
     public void toJsonWithoutApi(){
         if (model.getCurrentFileType() == FileExtension.XML && !model.getLeftContent().isEmpty()) {
             try {
@@ -327,6 +384,12 @@ public class PrincipalController {
         }
     }
 
+    /**
+     * Show error alert.
+     *
+     * @param title
+     * @param message
+     */
     private void showError(String title, String message) {
         javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
                 javafx.scene.control.Alert.AlertType.ERROR);
@@ -336,6 +399,12 @@ public class PrincipalController {
         alert.showAndWait();
     }
 
+    /**
+     * Get archive ID for a user.
+     *
+     * @param user
+     * @return
+     */
     public int archivesID(User user){
         ArchivesUsersRepository archivesUsersRepository = new ArchivesUsersRepository();
         return archivesUsersRepository.findByUserId(user.getId());

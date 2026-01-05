@@ -7,8 +7,19 @@ import org.dto.User;
 
 import java.sql.*;
 
+/**
+ * This class manages database operations for User objects.
+ */
 public class UserRepository implements BaseRepository<User> {
 
+    /**
+     * Add a new user to the database linked to an account.
+     *
+     * @param o user the User object
+     * @param account the Account linked to the user
+     * @return the User object with generated ID
+     * @throws SQLException
+     */
     //@Override
     public User add(User o, Account account) throws SQLException {
         String sql = "INSERT INTO User(firstName, lastName, gender, dateOfBirth, accountID) values(?,?,?,?,?)";
@@ -34,6 +45,13 @@ public class UserRepository implements BaseRepository<User> {
         return null;
     }
 
+    /**
+     * Remove a user from the database.
+     *
+     * @param o user the User object to remove
+     * @return true if removed successfully, false otherwise
+     * @throws SQLException
+     */
     @Override
     public boolean remove(User o) throws SQLException {
         String sql = "DELETE FROM User where UserID=?";
@@ -50,6 +68,13 @@ public class UserRepository implements BaseRepository<User> {
         return true;
     }
 
+    /**
+     * Update a user in the database.
+     *
+     * @param o user the User object to update
+     * @return true if updated successfully, false otherwise
+     * @throws SQLException
+     */
     @Override
     public boolean update(User o) throws SQLException {
         String sql = "UPDATE `User` set Firstname=?, Lastname=?, Gender=?, Dateofbirth=? where UserID = ?";
@@ -71,6 +96,13 @@ public class UserRepository implements BaseRepository<User> {
         return true;
     }
 
+    /**
+     * Find a user by their ID.
+     *
+     * @param id the user ID
+     * @return the User object or null if not found
+     * @throws SQLException
+     */
     @Override
     public User findById(int id) throws SQLException {
         String sql = "SELECT * FROM User WHERE UserID = ?";
@@ -98,6 +130,13 @@ public class UserRepository implements BaseRepository<User> {
         return null;
     }
 
+    /**
+     * Find a user by their account ID (foreign key).
+     *
+     * @param fk the account ID
+     * @return the User object or null if not found
+     * @throws SQLException
+     */
     public User findByFk(int fk) throws SQLException {
         String sql = "SELECT * FROM User WHERE AccountID = ?";
         Connection cn = DatabaseConnection.getInstance().getConnection();

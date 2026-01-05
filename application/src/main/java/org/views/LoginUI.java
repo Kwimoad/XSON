@@ -11,6 +11,18 @@ import org.controller.AuthenticationController;
 import org.dto.User;
 import static org.views.style.AppColors.*;
 
+/**
+ * LoginUI
+ *
+ * Cette classe crée l'interface pour se connecter à l'application XSON.
+ *
+ * L'utilisateur peut :
+ * - Se connecter avec email et mot de passe
+ * - Créer un nouveau compte
+ * - Essayer l'application sans compte
+ *
+ * Après connexion réussie, elle ouvre le tableau de bord correspondant.
+ */
 public class LoginUI extends Application {
 
     private TextField emailField;

@@ -6,10 +6,19 @@ import org.security.PasswordUtils;
 
 import java.sql.SQLException;
 
+/**
+ * This class manages user account operations.
+ */
 public class AccountController {
 
     private AccountRepository accountRepository = new AccountRepository();
 
+    /**
+     * Get an account by its ID.
+     *
+     * @param id account identifier
+     * @return the corresponding account
+     */
     public Account getAccount(int id){
         try {
             return accountRepository.findById(id);
@@ -18,6 +27,14 @@ public class AccountController {
         }
     }
 
+    /**
+     * Change the password of an account.
+     *
+     * @param account the account to update
+     * @param oldPassword current password
+     * @param newPassword new password
+     * @return true if the password is changed, false otherwise
+     */
     public boolean changePassword(Account account,String oldPassword,String newPassword){
         System.out.println(account.getPassword());
         if(!PasswordUtils.verify(oldPassword,account.getPassword())){

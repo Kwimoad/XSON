@@ -4,11 +4,17 @@ import org.resource.ResourceDB;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+/**
+ * This class manages the database connection using the Singleton pattern.
+ */
 public class DatabaseConnection {
 
     private static DatabaseConnection instance; // Singleton
     private Connection connection;
 
+    /**
+     * Private constructor to create the database connection.
+     */
     private DatabaseConnection() {
         try {
             ResourceDB resourceDB = new ResourceDB();
@@ -24,7 +30,11 @@ public class DatabaseConnection {
         }
     }
 
-    // Création de l’instance unique
+    /**
+     * Get the single instance of DatabaseConnection (Singleton).
+     *
+     * @return DatabaseConnection instance
+     */
     public static synchronized DatabaseConnection getInstance() {
         if (instance == null) {
             instance = new DatabaseConnection();
@@ -32,8 +42,13 @@ public class DatabaseConnection {
         return instance;
     }
 
-    // Accès à la connexion
+    /**
+     * Get the SQL connection.
+     *
+     * @return Connection object
+     */
     public Connection getConnection() {
         return connection;
     }
+
 }

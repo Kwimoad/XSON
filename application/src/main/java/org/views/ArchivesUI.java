@@ -18,6 +18,15 @@ import java.util.Map;
 
 import static org.views.style.AppColors.*;
 
+/**
+ * ArchivesUI
+ *
+ * This class represents the user interface for viewing and managing file archives in XSON.
+ * It shows XML and JSON file pairs organized by date in a tree structure.
+ * Users can select a file pair to see details like file names and paths.
+ *
+ * The class extends JavaFX Application and can be run as a standalone window.
+ */
 public class ArchivesUI extends Application {
 
     private TreeView<String> archiveTree;

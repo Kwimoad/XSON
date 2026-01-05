@@ -8,10 +8,20 @@ import org.utils.ValidationUtils;
 
 import java.sql.SQLException;
 
+/**
+ * This class manages user authentication.
+ */
 public class AuthenticationController {
 
     private AuthenticationService authService = new AuthenticationService();
 
+    /**
+     * Authenticate a user using email and password.
+     *
+     * @param email user email
+     * @param password user password
+     * @return User object if login is successful, null otherwise
+     */
     public User login(String email, String password) {
         if(ValidationUtils.isEmail(email) && ValidationUtils.isNotEmpty(password)){
             Account account = authService.authenticate(email, password);

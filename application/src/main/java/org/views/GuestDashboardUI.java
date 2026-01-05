@@ -11,6 +11,18 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import static org.views.style.AppColors.*;
 
+/**
+ * GuestDashboardUI
+ *
+ * This class represents the user interface for the guest dashboard in XSON.
+ * It provides a workspace where guests can create new files, import files,
+ * convert between XML and JSON, and save content. The interface includes
+ * two text areas for editing file content and toolbar buttons for main actions.
+ *
+ * The class extends JavaFX Application and interacts with PrincipalController
+ * to manage the file operations and conversions.
+ */
+
 public class GuestDashboardUI extends Application {
 
     private ToolBar toolBar = new ToolBar();

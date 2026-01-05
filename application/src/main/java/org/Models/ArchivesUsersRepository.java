@@ -6,8 +6,19 @@ import org.dto.User;
 
 import java.sql.*;
 
+/**
+ * This class manages the relationship between Users and Archives in the database.
+ */
 public class ArchivesUsersRepository {
 
+    /**
+     * Add a record linking a user to an archive.
+     *
+     * @param user the user
+     * @param archives the archive
+     * @return true if the link was added successfully, false otherwise
+     * @throws SQLException
+     */
     public boolean add(User user, Archives archives) throws SQLException {
         String sql = "INSERT INTO ArchivesUser VALUES (?,?)";
         Connection cn = DatabaseConnection.getInstance().getConnection();
@@ -28,8 +39,14 @@ public class ArchivesUsersRepository {
         return false;
     }
 
+    /**
+     * Find the archive ID associated with a given user ID.
+     *
+     * @param userID the user ID
+     * @return the archive ID if found, -1 otherwise
+     */
     public int findByUserId(int userID) {
-        int archivesId = -1; // valeur par défaut si rien trouvé
+        int archivesId = -1;
         String sql = "SELECT ArchivesID FROM ArchivesUser WHERE UserID = ?";
         Connection cn = DatabaseConnection.getInstance().getConnection();
         try (

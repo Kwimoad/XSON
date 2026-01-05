@@ -6,10 +6,19 @@ import org.security.PasswordUtils;
 
 import java.sql.SQLException;
 
+/**
+ * AuthenticationService handles user login by checking email and password.
+ */
 public class AuthenticationService {
 
     private AccountRepository accountRepository = new AccountRepository();
 
+    /**
+     * Authenticates a user by email and password.
+     * @param email The email provided by the user
+     * @param password The plain text password provided by the user
+     * @return The Account if authentication is successful, or null if failed
+     */
     public Account authenticate(String email, String password) {
         Account account = null;
         try {

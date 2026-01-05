@@ -13,6 +13,17 @@ import org.dto.Account;
 
 import static org.views.style.AppColors.*;
 
+/**
+ * ChangePasswordUI
+ *
+ * This class represents the user interface for changing a user's account password in XSON.
+ * It provides fields for the old password, new password, and confirmation of the new password.
+ * The UI validates password strength, shows errors or success messages, and interacts with
+ * AccountController to update the password for the given Account.
+ *
+ * The class extends JavaFX Application and can be run as a standalone window.
+ */
+
 public class ChangePasswordUI extends Application {
 
     private PasswordField oldPasswordField;

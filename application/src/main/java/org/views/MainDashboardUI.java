@@ -13,6 +13,28 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import static org.views.style.AppColors.*;
 
+/**
+ * MainDashboardUI
+ *
+ * Cette classe crée l'interface principale pour les utilisateurs connectés à l'application XSON.
+ *
+ * Fonctionnalités :
+ * - Créer un nouveau fichier
+ * - Importer un fichier
+ * - Accéder aux archives
+ * - Modifier les informations du compte
+ * - Se déconnecter
+ * - Convertir le contenu entre JSON et XML
+ * - Sauvegarder les fichiers
+ *
+ * Les zones de texte à gauche et à droite sont liées aux données du modèle (FileEntity) pour
+ * que les modifications soient automatiquement synchronisées.
+ *
+ * L'interface utilise JavaFX pour l'affichage et le style.
+ *
+ * Après connexion, le nom de l'utilisateur connecté s'affiche en haut à droite.
+ */
+
 public class MainDashboardUI extends Application {
 
     // Composants UI

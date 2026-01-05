@@ -4,10 +4,17 @@ import java.util.*;
 import java.util.regex.*;
 
 /**
- * Classe utilitaire pour convertir JSON en XML avec formatage
+ * Utility class to convert JSON to formatted XML.
  */
 public class JsonToXml {
 
+    /**
+     * Converts a JSON string into pretty-formatted XML.
+     * @param jsonStr The JSON string to convert.
+     * @param rootElement The name of the XML root element.
+     * @return The formatted XML string.
+     * @throws Exception If the JSON is empty or invalid.
+     */
     public static String convertJsonToXmlPretty(String jsonStr, String rootElement) throws Exception {
         jsonStr = jsonStr.trim();
         if (jsonStr.isEmpty()) {
@@ -40,6 +47,12 @@ public class JsonToXml {
         return xmlBuilder.toString();
     }
 
+    /**
+     * Recursively builds XML from a JSON object.
+     * @param jsonObj The JSON object to convert.
+     * @param xmlBuilder The StringBuilder holding the XML content.
+     * @param indentLevel The indentation level for formatting.
+     */
     private static void buildXml(Object jsonObj, StringBuilder xmlBuilder, int indentLevel) {
         if (jsonObj == null) {
             return;
@@ -94,6 +107,12 @@ public class JsonToXml {
         }
     }
 
+    /**
+     * Parses a JSON string representing an object into a Java Map.
+     * @param jsonStr JSON string representing an object.
+     * @return Map representing the JSON object.
+     * @throws Exception If the JSON format is invalid.
+     */
     private static Map<String, Object> parseJsonObject(String jsonStr) throws Exception {
         jsonStr = jsonStr.trim();
         if (!jsonStr.startsWith("{") || !jsonStr.endsWith("}")) {
@@ -161,6 +180,12 @@ public class JsonToXml {
         return result;
     }
 
+    /**
+     * Parses a JSON string representing an array into a Java List.
+     * @param jsonStr JSON string representing an array.
+     * @return List representing the JSON array.
+     * @throws Exception If the JSON format is invalid.
+     */
     private static List<Object> parseJsonArray(String jsonStr) throws Exception {
         jsonStr = jsonStr.trim();
         if (!jsonStr.startsWith("[") || !jsonStr.endsWith("]")) {
@@ -216,6 +241,12 @@ public class JsonToXml {
         return result;
     }
 
+    /**
+     * Parses a JSON value and converts it into a Java object.
+     * @param valueStr The string representing the JSON value.
+     * @return Java object corresponding to the JSON value (String, Number, Boolean, Map, or List).
+     * @throws Exception If the JSON value is invalid.
+     */
     private static Object parseJsonValue(String valueStr) throws Exception {
         valueStr = valueStr.trim();
 
@@ -268,6 +299,11 @@ public class JsonToXml {
         throw new Exception("Valeur JSON invalide: " + valueStr);
     }
 
+    /**
+     * Removes quotes from a string.
+     * @param str The string with quotes.
+     * @return The string without quotes.
+     */
     private static String removeQuotes(String str) {
         str = str.trim();
         if ((str.startsWith("\"") && str.endsWith("\"")) ||
@@ -277,6 +313,11 @@ public class JsonToXml {
         return str;
     }
 
+    /**
+     * Unescapes escaped characters in a JSON string.
+     * @param str The escaped JSON string.
+     * @return The unescaped string.
+     */
     private static String unescapeJsonString(String str) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < str.length(); i++) {
@@ -318,6 +359,11 @@ public class JsonToXml {
         return result.toString();
     }
 
+    /**
+     * Escapes special characters for XML.
+     * @param str The string to escape.
+     * @return The string with XML-escaped characters.
+     */
     private static String escapeXml(String str) {
         if (str == null) return "";
 
@@ -336,6 +382,11 @@ public class JsonToXml {
         return result.toString();
     }
 
+    /**
+     * Sanitizes a name to be a valid XML element name.
+     * @param name The name to sanitize.
+     * @return A valid XML element name.
+     */
     private static String sanitizeXmlName(String name) {
         if (name == null || name.isEmpty()) {
             return "element";
@@ -348,6 +399,11 @@ public class JsonToXml {
         return name;
     }
 
+    /**
+     * Generates a singular element name from a plural name.
+     * @param pluralName The plural name.
+     * @return Singular name for XML elements.
+     */
     private static String getItemName(String pluralName) {
         if (pluralName == null || pluralName.isEmpty()) {
             return "item";

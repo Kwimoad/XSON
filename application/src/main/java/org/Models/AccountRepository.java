@@ -5,8 +5,18 @@ import org.dto.Account;
 
 import java.sql.*;
 
+/**
+ * This class manages CRUD operations for Account objects in the database.
+ */
 public class AccountRepository implements BaseRepository<Account> {
 
+    /**
+     *Add a new account to the database.
+     *
+     * @param o account the Account object to add
+     * @return the Account object with generated ID
+     * @throws SQLException if database error occurs
+     */
     public Account add(Account o) throws SQLException {
         String sql = "INSERT INTO Account(email, password) values(?,?)";
         Connection cn = DatabaseConnection.getInstance().getConnection();
@@ -27,6 +37,13 @@ public class AccountRepository implements BaseRepository<Account> {
         return null;
     }
 
+    /**
+     * Remove an account from the database.
+     *
+     * @param o account the account to remove
+     * @return true if removed successfully, false otherwise
+     * @throws SQLException
+     */
     @Override
     public boolean remove(Account o) throws SQLException {
         String sql = "DELETE FROM Account where AccountID=?";
@@ -43,6 +60,13 @@ public class AccountRepository implements BaseRepository<Account> {
         return true;
     }
 
+    /**
+     * Update account information in the database.
+     *
+     * @param o account the account to update
+     * @return true if updated successfully, false otherwise
+     * @throws SQLException
+     */
     @Override
     public boolean update(Account o) throws SQLException {
         String sql = "UPDATE Account set email=?, password=?";
@@ -61,6 +85,13 @@ public class AccountRepository implements BaseRepository<Account> {
         return true;
     }
 
+    /**
+     * Find an account by its ID.
+     *
+     * @param id the account ID
+     * @return the Account object if found, null otherwise
+     * @throws SQLException
+     */
     @Override
     public Account findById(int id) throws SQLException {
         String sql = "SELECT * FROM Account WHERE AccountID = ?";
@@ -85,6 +116,13 @@ public class AccountRepository implements BaseRepository<Account> {
         return null;
     }
 
+    /**
+     * Find an account by its email.
+     *
+     * @param email the account email
+     * @return the Account object if found, null otherwise
+     * @throws SQLException
+     */
     public Account find(String email) throws SQLException {
         String sql = "SELECT * FROM Account WHERE email = ?";
         Connection cn = DatabaseConnection.getInstance().getConnection();

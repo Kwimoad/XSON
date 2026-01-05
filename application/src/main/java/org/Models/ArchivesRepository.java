@@ -5,8 +5,17 @@ import org.dto.Archives;
 
 import java.sql.*;
 
+/**
+ * This class manages database operations for Archives.
+ */
 public class ArchivesRepository implements BaseRepository<Archives> {
 
+    /**
+     * Add a new archive in the database.
+     *
+     * @return the newly created Archives object with generated ID
+     * @throws SQLException
+     */
     public Archives add() throws SQLException {
         String sql = "INSERT INTO Archives VALUES ()";
         Connection cn = DatabaseConnection.getInstance().getConnection();
@@ -24,16 +33,34 @@ public class ArchivesRepository implements BaseRepository<Archives> {
         return null;
     }
 
+    /**
+     *
+     * @param o the object to remove
+     * @return
+     * @throws SQLException
+     */
     @Override
     public boolean remove(Archives o) throws SQLException {
         return false;
     }
 
+    /**
+     *
+     * @param o the object to update
+     * @return
+     * @throws SQLException
+     */
     @Override
     public boolean update(Archives o) throws SQLException {
         return false;
     }
 
+    /**
+     *
+     * @param id the object ID
+     * @return
+     * @throws SQLException
+     */
     @Override
     public Archives findById(int id) throws SQLException {
         return null;

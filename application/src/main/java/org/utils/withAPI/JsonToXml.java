@@ -12,16 +12,20 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.StringReader;
 import java.io.StringWriter;
 
+/**
+ * JsonToXml class converts JSON strings into pretty-formatted XML strings.
+ * It uses the org.json library and supports a custom root element name.
+ */
 public class JsonToXml {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     /**
-     * Convertit une chaîne JSON en XML avec indentation et nom de racine
-     * @param jsonString Chaîne JSON à convertir
-     * @param rootName Nom de l'élément racine pour le XML
-     * @return XML indenté
-     * @throws Exception Si la conversion échoue
+     * Converts a JSON string to XML with indentation and a root element name.
+     * @param jsonString The JSON string to convert
+     * @param rootName The name of the root element in the XML
+     * @return A formatted XML string
+     * @throws Exception If the conversion fails
      */
     public static String convertJsonToXmlPretty(String jsonString, String rootName) throws Exception {
         try {
@@ -33,6 +37,12 @@ public class JsonToXml {
         }
     }
 
+    /**
+     * Formats the XML string with indentation.
+     * @param xml The XML string to format
+     * @return Pretty-printed XML string
+     * @throws Exception If formatting fails
+     */
     private static String formatXml(String xml) throws Exception {
         Transformer transformer = TransformerFactory.newInstance().newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");

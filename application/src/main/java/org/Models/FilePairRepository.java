@@ -9,8 +9,19 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class manages database operations for FilePairs.
+ * A FilePair links a JSON file with an XML file in an archive.
+ */
 public class FilePairRepository {
 
+    /**
+     * Add a new FilePair to the database.
+     *
+     * @param o filePair the FilePair object
+     * @return true if added successfully, false otherwise
+     * @throws SQLException
+     */
     public boolean add(FilePair o) throws SQLException {
         String sql = "INSERT INTO FilePairs(LastModified, ArchivesID, XmlFileID, JsonFileID) values(?,?,?,?)";
         Connection cn = DatabaseConnection.getInstance().getConnection();
@@ -29,6 +40,13 @@ public class FilePairRepository {
         return true;
     }
 
+    /**
+     * Get a list of all distinct modification dates for a given archive.
+     *
+     * @param archives the archive
+     * @return a list of dates
+     * @throws SQLException
+     */
     public List<Date> findGroupDate(Archives archives) throws SQLException {
         List<Date> dates = new ArrayList<>();
         String sql = "SELECT DISTINCT LastModified FROM FilePairs ORDER BY LastModified where ArchivesID = ?";
@@ -46,6 +64,13 @@ public class FilePairRepository {
         return dates;
     }
 
+    /**
+     * Get all FilePairs for an archive, grouped by modification date.
+     *
+     * @param archiveID the archive ID
+     * @return a map: date -> list of FilePairInfo
+     * @throws SQLException
+     */
     public Map<Date, List<FilePairInfo>> findFilePairsGroupedByDate(int archiveID) throws SQLException {
         Map<Date, List<FilePairInfo>> result = new LinkedHashMap<>();
         String sql =

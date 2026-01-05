@@ -1,5 +1,11 @@
 package org.views.style;
 
+/**
+ * Utility class that defines application color constants.
+ *
+ * <p>All fields are public static final strings representing hex color codes.
+ * This class cannot be instantiated.</p>
+ */
 public final class AppColors {
 
     private AppColors() {}

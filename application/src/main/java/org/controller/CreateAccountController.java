@@ -12,8 +12,22 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+/**
+ * This class manages the creation of a new user account.
+ */
 public class CreateAccountController {
 
+    /**
+     * Create a complete user account (account, user, and archives).
+     *
+     * @param firstName user's first name
+     * @param lastName user's last name
+     * @param dateOfBirth user's date of birth (dd/MM/yyyy)
+     * @param gender user's gender
+     * @param email user's email
+     * @param password user's password
+     * @return created User object, or null if data is invalid
+     */
     public User create(String firstName, String lastName, String dateOfBirth, String gender,
                        String email, String password){
 
@@ -33,6 +47,13 @@ public class CreateAccountController {
 
     }
 
+    /**
+     * Create an account with email and password.
+     *
+     * @param email account email
+     * @param password account password
+     * @return created Account object
+     */
     public Account createAccount(String email, String password){
 
         AccountRepository accountRepository = new AccountRepository();
@@ -46,6 +67,16 @@ public class CreateAccountController {
 
     }
 
+    /**
+     * Create a user linked to an account.
+     *
+     * @param firstName user's first name
+     * @param lastName user's last name
+     * @param dateOfBirth user's date of birth
+     * @param gender user's gender
+     * @param account linked account
+     * @return created User object
+     */
     public User createUser(String firstName, String lastName, String dateOfBirth, String gender, Account account){
         UserRepository userRepository = new UserRepository();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -63,6 +94,11 @@ public class CreateAccountController {
 
     }
 
+    /**
+     * Create user archives.
+     *
+     * @return created Archives object
+     */
     public Archives createArchives(){
         ArchivesRepository archivesRepository = new ArchivesRepository();
         try {
@@ -72,6 +108,13 @@ public class CreateAccountController {
         }
     }
 
+    /**
+     * Link a user to archives.
+     *
+     * @param user the user
+     * @param archives the archives
+     * @return true if the link is created, false otherwise
+     */
     public boolean createArchivesUsers(User user, Archives archives){
         ArchivesUsersRepository archivesUsersRepository = new ArchivesUsersRepository();
         try {

@@ -5,14 +5,24 @@ import javax.xml.parsers.*;
 import java.io.File;
 import java.util.*;
 
+/**
+ * Utility class to convert XML to JSON.
+ */
 public class XmlToJson {
 
+    /**
+     * Represents a node in the JSON structure.
+     */
     public static class JsonNode {
         private String name;
         private String value;
         private Map<String, String> attributes = new LinkedHashMap<>();
         private Map<String, List<JsonNode>> children = new LinkedHashMap<>();
 
+        /**
+         * Creates a JsonNode with a given name.
+         * @param name The name of the node.
+         */
         public JsonNode(String name) {
             this.name = name;
         }
@@ -24,15 +34,31 @@ public class XmlToJson {
         public Map<String, String> getAttributes() { return attributes; }
         public Map<String, List<JsonNode>> getChildren() { return children; }
 
+        /**
+         * Adds an attribute to the node.
+         * @param key Attribute name.
+         * @param value Attribute value.
+         */
         public void addAttribute(String key, String value) {
             attributes.put(key, value);
         }
 
+        /**
+         * Adds a child node under a given name.
+         * @param name The name of the child node.
+         * @param child The JsonNode to add as a child.
+         */
         public void addChild(String name, JsonNode child) {
             children.computeIfAbsent(name, k -> new ArrayList<>()).add(child);
         }
     }
 
+
+    /**
+     * Converts an XML Element to a JsonNode object recursively.
+     * @param element The XML element to convert.
+     * @return The corresponding JsonNode.
+     */
     public static JsonNode xmlToObject(Element element) {
         JsonNode node = new JsonNode(element.getTagName());
 
@@ -70,6 +96,11 @@ public class XmlToJson {
         return node;
     }
 
+    /**
+     * Escapes special characters in a string for JSON output.
+     * @param value The string to escape.
+     * @return Escaped string suitable for JSON.
+     */
     private static String escapeJsonString(String value) {
         if (value == null) return "";
 
@@ -94,12 +125,24 @@ public class XmlToJson {
         return sb.toString();
     }
 
+    /**
+     * Converts a JsonNode to a pretty-formatted JSON string.
+     * @param node The JsonNode to convert.
+     * @return A formatted JSON string.
+     */
+
     public static String toPrettyJSONString(JsonNode node) {
         StringBuilder sb = new StringBuilder();
         buildPrettyJson(node, sb, 0);
         return sb.toString();
     }
 
+    /**
+     * Recursively builds a formatted JSON string from a JsonNode.
+     * @param node The JsonNode to process.
+     * @param sb StringBuilder that accumulates the JSON string.
+     * @param indent Current indentation level.
+     */
     private static void buildPrettyJson(JsonNode node, StringBuilder sb, int indent) {
         String indentStr = "  ".repeat(indent);
         String childIndent = "  ".repeat(indent + 1);

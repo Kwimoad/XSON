@@ -12,9 +12,25 @@ import org.utils.ValidationUtils;
 import org.dto.User;
 import static org.views.style.AppColors.*;
 
+/**
+ * RegistrationUI
+ *
+ * Cette classe crée l'interface pour la création d'un nouveau compte utilisateur dans l'application XSON.
+ *
+ * Fonctionnalités :
+ * - Saisie du prénom, nom, date de naissance, genre, email et mot de passe.
+ * - Validation des champs obligatoires (*).
+ * - Vérification que le mot de passe contient au moins 8 caractères.
+ * - Vérification que l'email est valide.
+ * - Création du compte via CreateAccountController.
+ * - Affichage d'un message de succès ou d'erreur.
+ * - Retour à l'écran de connexion après création ou via le bouton "Back".
+ *
+ * L'interface utilise JavaFX et applique des styles simples pour les boutons, champs de texte et alertes.
+ */
+
 public class RegistrationUI extends Application {
 
-    // Déclaration comme attributs
     private Button backButton;
     private Button validButton;
     private Label firstNameLabel;

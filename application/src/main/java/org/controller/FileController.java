@@ -11,11 +11,21 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class manages file operations.
+ */
 public class FileController {
 
     private FilePairRepository filePairRepository = new FilePairRepository();
     private FileInformationRepository fileInformationRepository = new FileInformationRepository();
 
+    /**
+     * Add a pair of files (XML and JSON).
+     *
+     * @param xmlFile XML file information
+     * @param jsonFile JSON file information
+     * @param archiveId archive identifier
+     */
     public void addFiles(FileInformation xmlFile, FileInformation jsonFile, int archiveId){
         try {
             FileInformation newXmlFile = fileInformationRepository.add(xmlFile, archiveId);
@@ -27,6 +37,12 @@ public class FileController {
         }
     }
 
+    /**
+     * Get files grouped by date for a specific archive.
+     *
+     * @param archiveID archive identifier
+     * @return files grouped by date
+     */
     public Map<Date, List<FilePairInfo>> findFileByDate(int archiveID){
         try {
             return filePairRepository.findFilePairsGroupedByDate(archiveID);

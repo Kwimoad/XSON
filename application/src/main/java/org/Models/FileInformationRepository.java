@@ -6,8 +6,19 @@ import org.dto.FileInformation;
 
 import java.sql.*;
 
+/**
+ * This class manages database operations for FileInformation objects.
+ */
 public class FileInformationRepository implements BaseRepository<FileInformation> {
 
+    /**
+     * Add a new file record to the database.
+     *
+     * @param o fileInformation the FileInformation object
+     * @param archiveId the ID of the archive to link the file
+     * @return the FileInformation object with generated ID
+     * @throws SQLException
+     */
     public FileInformation add(FileInformation o, int archiveId) throws SQLException {
         String sql = "INSERT INTO Fileinformation(fileName, filePath, lastModification, extension, ArchivesID) VALUES (?, ?, ?, ?, ?)";
         FileInformation fileInformation = null;
@@ -24,7 +35,7 @@ public class FileInformationRepository implements BaseRepository<FileInformation
             ps.setInt(5, archiveId);
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {
-                throw new SQLException("L'insertion a échoué, aucune ligne affectée.");
+                throw new SQLException("Insert failed, no ID obtained.");
             }
             try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
@@ -36,7 +47,7 @@ public class FileInformationRepository implements BaseRepository<FileInformation
                             o.getExtension()
                     );
                 } else {
-                    throw new SQLException("L'insertion a échoué, aucun ID généré.");
+                    throw new SQLException("Insert failed, no ID obtained.");
                 }
             }
         } catch (SQLException e) {
@@ -46,6 +57,13 @@ public class FileInformationRepository implements BaseRepository<FileInformation
         return fileInformation;
     }
 
+    /**
+     * Remove a file record from the database.
+     *
+     * @param o fileInformation the FileInformation object to remove
+     * @return true if removed successfully, false otherwise
+     * @throws SQLException
+     */
     @Override
     public boolean remove(FileInformation o) throws SQLException {
         String sql = "DELETE FROM Fileinformation where FileinformationID=?";
@@ -62,11 +80,23 @@ public class FileInformationRepository implements BaseRepository<FileInformation
         return true;
     }
 
+    /**
+     *
+     * @param o the object to update
+     * @return
+     * @throws SQLException
+     */
     @Override
     public boolean update(FileInformation o) throws SQLException {
         return false;
     }
 
+    /**
+     *
+     * @param id the object ID
+     * @return
+     * @throws SQLException
+     */
     @Override
     public FileInformation findById(int id) throws SQLException {
         return null;
