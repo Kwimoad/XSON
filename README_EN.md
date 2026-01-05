@@ -1,3 +1,11 @@
+![Language](https://img.shields.io/badge/README-FR%20%7C%20EN-blue)
+![Java](https://img.shields.io/badge/Java-21-orange?logo=openjdk)
+![JavaFX](https://img.shields.io/badge/JavaFX-21-blue)
+![Maven](https://img.shields.io/badge/Maven-3.x-C71A36?logo=apachemaven)
+![MySQL](https://img.shields.io/badge/MySQL-Database-4479A1?logo=mysql)
+![MIT License](https://img.shields.io/badge/License-MIT-green)
+![JSON](https://img.shields.io/badge/Format-JSON-lightgrey)
+![XML](https://img.shields.io/badge/Format-XML-lightgrey)
 
 # XSON
 
@@ -41,6 +49,20 @@ The application offers sophisticated utilities for data conversion:
 - Real-time conversion between formats
 - Archive and file management
 - Intuitive interface with custom themes
+
+## Screenshots
+
+### 🔐 Login screen
+![Login](docs/screenshots/loginUI.png)
+
+### 🖥️ Main Dashboard – JSON ↔ XML Conversion
+![Dashboard](docs/screenshots/mainDashboardUI.png)
+
+### 👤 Guest Dashboard (Trial Without Account)
+![Guest Dashboard](docs/screenshots/guestDashboardUI.png)
+
+### 📁 Archive Management
+![Archives](docs/screenshots/archivesUI.png)
 
 ## Technologies Used
 - **Java 21** - Programming language
@@ -128,7 +150,12 @@ src/main/java/org/
 ```
 
 ## Demo Video
-For a complete demonstration of JSON/XML conversion features and the user interface, watch our explanatory video available on Drive.
+For a complete demonstration of JSON/XML conversion features and the user interface, watch our explanatory video.
+<p align="center">
+  <a href="https://drive.google.com/file/d/1oI_3QkuAIBEmOg-V87i2aA7lPbxwvU8y/view?usp=sharing">
+    <img src="/docs/Carte de visite - XSON.gif" width="600"/>
+  </a>
+</p>
 
 ## Contributors
 - Aouad Abdelkarim
