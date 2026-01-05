@@ -161,6 +161,12 @@ Pour une démonstration complète des fonctionnalités de conversion JSON/XML et
   </a>
 </p>
 
+# Documentation Javadoc
+
+La documentation complète de l'application est générée avec Javadoc et se trouve dans le dossier :
+
+[Voir la documentation Javadoc](/docs/javadoc/index.html)
+
 ## Contributeurs
 - Aouad Abdelkarim
 
