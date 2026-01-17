@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import static org.views.style.AppColors.*;
 
 /**
  * MainDashboardUI
@@ -36,6 +35,8 @@ import static org.views.style.AppColors.*;
  */
 
 public class MainDashboardUI extends Application {
+
+    private static final String APP_STYLESHEET = "/styles/app.css";
 
     // Composants UI
     private ToolBar toolBar = new ToolBar();
@@ -77,6 +78,7 @@ public class MainDashboardUI extends Application {
         setupActions();
 
         Scene scene = new Scene(root, 1000, 650);
+        scene.getStylesheets().add(getClass().getResource(APP_STYLESHEET).toExternalForm());
         stage.setTitle("XSON");
         stage.setScene(scene);
         stage.setMaximized(true);
@@ -84,131 +86,54 @@ public class MainDashboardUI extends Application {
     }
 
     private void configureUI() {
-        toolBar.setStyle("-fx-background-color: " + CARD_BACKGROUND + "; " +
-                "-fx-border-color: " + BORDER_COLOR + "; " +
-                "-fx-border-width: 0 0 1 0;");
+        toolBar.getStyleClass().add("xson-toolbar");
 
-        String toolbarButtonStyle = "-fx-background-color: " + SECONDARY_BLUE + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 8 20; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 13px; " +
-                "-fx-cursor: hand;";
-
-        newFileButton.setStyle(toolbarButtonStyle);
-        importFileButton.setStyle(toolbarButtonStyle);
-        archiveButton.setStyle("-fx-background-color: " + ARCHIVE_COLOR + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 8 20; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 13px; " +
-                "-fx-cursor: hand;");
-        accountButton.setStyle("-fx-background-color: " + ACCENT_GREEN + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 8 20; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 13px; " +
-                "-fx-cursor: hand;");
-        logoutButton.setStyle("-fx-background-color: " + "#DC3545" + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 8 20; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 13px; " +
-                "-fx-cursor: hand;");
-
-        setupHoverEffects();
+        newFileButton.getStyleClass().addAll("button-base", "toolbar-button");
+        importFileButton.getStyleClass().addAll("button-base", "toolbar-button");
+        archiveButton.getStyleClass().addAll("button-base", "archive-button");
+        accountButton.getStyleClass().addAll("button-base", "account-button");
+        logoutButton.getStyleClass().addAll("button-base", "logout-button");
 
         toolBar.getItems().addAll(newFileButton, importFileButton, archiveButton, accountButton, logoutButton);
 
         nameUserField.setDisable(true);
         nameUserField.setPrefWidth(120);
-        nameUserField.setStyle("-fx-background-color: " + LIGHT_BACKGROUND + "; " +
-                "-fx-border-color: " + BORDER_COLOR + "; " +
-                "-fx-border-width: 1; " +
-                "-fx-border-radius: 4; " +
-                "-fx-padding: 6 10; " +
-                "-fx-font-weight: 500; " +
-                "-fx-text-fill: " + TEXT_DARK + ";");
+        nameUserField.getStyleClass().add("user-display-field");
         nameUserField.setText(user.getLastName()+" "+user.getFirstName());
 
         HBox.setHgrow(spacer, Priority.ALWAYS);
         topBar.getChildren().addAll(toolBar, spacer, nameUserField);
         topBar.setAlignment(Pos.CENTER_LEFT);
         topBar.setPadding(new Insets(5));
-        topBar.setStyle("-fx-background-color: " + CARD_BACKGROUND + ";");
+        topBar.getStyleClass().add("top-bar");
 
-        String textAreaStyle = "-fx-control-inner-background: " + CARD_BACKGROUND + "; " +
-                "-fx-border-color: " + BORDER_COLOR + "; " +
-                "-fx-border-width: 1.5; " +
-                "-fx-border-radius: 8; " +
-                "-fx-font-size: 14px; " +
-                "-fx-text-fill: " + TEXT_DARK + "; " +
-                "-fx-font-family: 'Segoe UI', 'Arial', sans-serif; " +
-                "-fx-padding: 12;";
+        leftTextArea.getStyleClass().add("content-area");
+        rightTextArea.getStyleClass().add("content-area");
 
-        leftTextArea.setStyle(textAreaStyle);
-        rightTextArea.setStyle(textAreaStyle);
-
-        String middleButtonStyle = "-fx-background-color: " + ACCENT_PURPLE + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 12 24; " +
-                "-fx-background-radius: 6; " +
-                "-fx-min-width: 120; " +
-                "-fx-font-size: 14px; " +
-                "-fx-cursor: hand;";
-
-        toXmlButton.setStyle(middleButtonStyle);
-        toJsonButton.setStyle(middleButtonStyle);
-
-        toXmlButton.setOnMouseEntered(e -> toXmlButton.setStyle(middleButtonStyle + " -fx-background-color: " + HOVER_PURPLE + ";"));
-        toXmlButton.setOnMouseExited(e -> toXmlButton.setStyle(middleButtonStyle));
-
-        toJsonButton.setOnMouseEntered(e -> toJsonButton.setStyle(middleButtonStyle + " -fx-background-color: " + HOVER_PURPLE + ";"));
-        toJsonButton.setOnMouseExited(e -> toJsonButton.setStyle(middleButtonStyle));
+        toXmlButton.getStyleClass().addAll("button-base", "middle-action");
+        toJsonButton.getStyleClass().addAll("button-base", "middle-action");
 
         middleButtons.getChildren().addAll(toXmlButton, toJsonButton);
         middleButtons.setAlignment(Pos.CENTER);
-        middleButtons.setStyle("-fx-background-color: " + LIGHT_BACKGROUND + "; " +
-                "-fx-padding: 25; " +
-                "-fx-background-radius: 12; " +
-                "-fx-border-color: " + BORDER_COLOR + "; " +
-                "-fx-border-width: 1; " +
-                "-fx-border-radius: 12;");
+        middleButtons.getStyleClass().add("middle-buttons");
 
         HBox centerBox = new HBox(20, leftTextArea, middleButtons, rightTextArea);
         centerBox.setPadding(new Insets(15));
-        centerBox.setStyle("-fx-background-color: " + LIGHT_BACKGROUND + ";");
+        centerBox.getStyleClass().add("content-container");
         HBox.setHgrow(leftTextArea, Priority.ALWAYS);
         HBox.setHgrow(rightTextArea, Priority.ALWAYS);
 
-        String saveButtonStyle = "-fx-background-color: " + PRIMARY_BLUE + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 12 35; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 14px; " +
-                "-fx-cursor: hand;";
-
-        saveButton.setStyle(saveButtonStyle);
-        saveButton.setOnMouseEntered(e -> saveButton.setStyle(saveButtonStyle + " -fx-background-color: " + HOVER_BLUE + ";"));
-        saveButton.setOnMouseExited(e -> saveButton.setStyle(saveButtonStyle));
+        saveButton.getStyleClass().addAll("button-base", "save-button");
 
         bottomBox.getChildren().add(saveButton);
         bottomBox.setAlignment(Pos.CENTER_RIGHT);
         bottomBox.setPadding(new Insets(15));
-        bottomBox.setStyle("-fx-background-color: " + CARD_BACKGROUND + "; " +
-                "-fx-border-color: " + BORDER_COLOR + "; " +
-                "-fx-border-width: 1 0 0 0;");
+        bottomBox.getStyleClass().add("bottom-bar");
 
         root.setTop(topBar);
         root.setCenter(centerBox);
         root.setBottom(bottomBox);
-        root.setStyle("-fx-background-color: linear-gradient(135deg, " + LIGHT_BACKGROUND + ", #F0F4F8);");
+        root.getStyleClass().add("dashboard-root");
     }
 
     private void bindData() {
@@ -237,89 +162,6 @@ public class MainDashboardUI extends Application {
                 Platform.runLater(() -> leftTextArea.requestFocus());
             }
         });
-    }
-
-    private void setupHoverEffects() {
-        newFileButton.setOnMouseEntered(e -> newFileButton.setStyle(
-                "-fx-background-color: " + HOVER_BLUE + "; " +
-                        "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                        "-fx-font-weight: 600; " +
-                        "-fx-padding: 8 20; " +
-                        "-fx-background-radius: 6; " +
-                        "-fx-font-size: 13px; " +
-                        "-fx-cursor: hand;"));
-        newFileButton.setOnMouseExited(e -> newFileButton.setStyle(
-                "-fx-background-color: " + SECONDARY_BLUE + "; " +
-                        "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                        "-fx-font-weight: 600; " +
-                        "-fx-padding: 8 20; " +
-                        "-fx-background-radius: 6; " +
-                        "-fx-font-size: 13px; " +
-                        "-fx-cursor: hand;"));
-        importFileButton.setOnMouseEntered(e -> importFileButton.setStyle(
-                "-fx-background-color: " + HOVER_BLUE + "; " +
-                        "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                        "-fx-font-weight: 600; " +
-                        "-fx-padding: 8 20; " +
-                        "-fx-background-radius: 6; " +
-                        "-fx-font-size: 13px; " +
-                        "-fx-cursor: hand;"));
-        importFileButton.setOnMouseExited(e -> importFileButton.setStyle(
-                "-fx-background-color: " + SECONDARY_BLUE + "; " +
-                        "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                        "-fx-font-weight: 600; " +
-                        "-fx-padding: 8 20; " +
-                        "-fx-background-radius: 6; " +
-                        "-fx-font-size: 13px; " +
-                        "-fx-cursor: hand;"));
-        archiveButton.setOnMouseEntered(e -> archiveButton.setStyle(
-                "-fx-background-color: " + HOVER_ORANGE + "; " +
-                        "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                        "-fx-font-weight: 600; " +
-                        "-fx-padding: 8 20; " +
-                        "-fx-background-radius: 6; " +
-                        "-fx-font-size: 13px; " +
-                        "-fx-cursor: hand;"));
-        archiveButton.setOnMouseExited(e -> archiveButton.setStyle(
-                "-fx-background-color: " + ARCHIVE_COLOR + "; " +
-                        "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                        "-fx-font-weight: 600; " +
-                        "-fx-padding: 8 20; " +
-                        "-fx-background-radius: 6; " +
-                        "-fx-font-size: 13px; " +
-                        "-fx-cursor: hand;"));
-        accountButton.setOnMouseEntered(e -> accountButton.setStyle(
-                "-fx-background-color: " + HOVER_GREEN + "; " +
-                        "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                        "-fx-font-weight: 600; " +
-                        "-fx-padding: 8 20; " +
-                        "-fx-background-radius: 6; " +
-                        "-fx-font-size: 13px; " +
-                        "-fx-cursor: hand;"));
-        accountButton.setOnMouseExited(e -> accountButton.setStyle(
-                "-fx-background-color: " + ACCENT_GREEN + "; " +
-                        "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                        "-fx-font-weight: 600; " +
-                        "-fx-padding: 8 20; " +
-                        "-fx-background-radius: 6; " +
-                        "-fx-font-size: 13px; " +
-                        "-fx-cursor: hand;"));
-        logoutButton.setOnMouseEntered(e -> logoutButton.setStyle(
-                "-fx-background-color: " + "#C82333" + "; " +
-                        "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                        "-fx-font-weight: 600; " +
-                        "-fx-padding: 8 20; " +
-                        "-fx-background-radius: 6; " +
-                        "-fx-font-size: 13px; " +
-                        "-fx-cursor: hand;"));
-        logoutButton.setOnMouseExited(e -> logoutButton.setStyle(
-                "-fx-background-color: " + "#DC3545" + "; " +
-                        "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                        "-fx-font-weight: 600; " +
-                        "-fx-padding: 8 20; " +
-                        "-fx-background-radius: 6; " +
-                        "-fx-font-size: 13px; " +
-                        "-fx-cursor: hand;"));
     }
 
     private void setupActions() {

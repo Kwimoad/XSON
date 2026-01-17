@@ -14,8 +14,6 @@ import org.dto.User;
 
 import java.sql.Date;
 
-import static org.views.style.AppColors.*;
-
 /**
  * AccountUI
  *
@@ -27,6 +25,8 @@ import static org.views.style.AppColors.*;
  * The UI is built using JavaFX and organized with GridPane and VBox layouts.
  */
 public class AccountUI extends Application {
+
+    private static final String APP_STYLESHEET = "/styles/app.css";
 
     private VBox root;
     private VBox buttonsBox;
@@ -62,6 +62,7 @@ public class AccountUI extends Application {
         configureUI();
 
         Scene scene = new Scene(root, 550, 550);
+        scene.getStylesheets().add(getClass().getResource(APP_STYLESHEET).toExternalForm());
         stage.setTitle("Account Management – XSON");
         stage.setScene(scene);
         stage.setResizable(false);
@@ -71,61 +72,53 @@ public class AccountUI extends Application {
     }
 
     private void configureUI(){
-        String labelStyle = "-fx-font-weight: 600; " +
-                "-fx-text-fill: " + TEXT_DARK + "; " +
-                "-fx-font-size: 14px;";
-
         firstNameLabel = new Label("First name :");
-        firstNameLabel.setStyle(labelStyle);
+        firstNameLabel.getStyleClass().add("form-label");
 
         lastNameLabel = new Label("Last name :");
-        lastNameLabel.setStyle(labelStyle);
+        lastNameLabel.getStyleClass().add("form-label");
 
         dateOfBirthLabel = new Label("Date of birth :");
-        dateOfBirthLabel.setStyle(labelStyle);
+        dateOfBirthLabel.getStyleClass().add("form-label");
 
         genderLabel = new Label("Gender :");
-        genderLabel.setStyle(labelStyle);
+        genderLabel.getStyleClass().add("form-label");
 
         emailLabel = new Label("Email :");
-        emailLabel.setStyle(labelStyle);
-
-        String textFieldStyle = "-fx-background-color: " + CARD_BACKGROUND + "; " +
-                "-fx-border-color: " + BORDER_COLOR + "; " +
-                "-fx-border-width: 1.5; " +
-                "-fx-border-radius: 6; " +
-                "-fx-padding: 10; " +
-                "-fx-font-size: 14px; " +
-                "-fx-text-fill: " + TEXT_DARK + "; " +
-                "-fx-pref-height: 40;";
+        emailLabel.getStyleClass().add("form-label");
 
         firstNameField = new TextField();
-        firstNameField.setStyle(textFieldStyle);
+        firstNameField.getStyleClass().add("text-input");
+        firstNameField.setPrefHeight(40);
         firstNameField.setText(user.getFirstName());
         firstNameField.setEditable(false);
         firstNameField.setFocusTraversable(false);
 
         lastNameField = new TextField();
-        lastNameField.setStyle(textFieldStyle);
+        lastNameField.getStyleClass().add("text-input");
+        lastNameField.setPrefHeight(40);
         lastNameField.setText(user.getLastName());
         lastNameField.setEditable(false);
         lastNameField.setFocusTraversable(false);
 
         dateOfBirthField = new TextField();
-        dateOfBirthField.setStyle(textFieldStyle);
+        dateOfBirthField.getStyleClass().add("text-input");
+        dateOfBirthField.setPrefHeight(40);
         dateOfBirthField.setText(String.valueOf(user.getDateOfBirth()));
         dateOfBirthField.setEditable(false);
         dateOfBirthField.setFocusTraversable(false);
 
         genderField = new TextField();
-        genderField.setStyle(textFieldStyle);
+        genderField.getStyleClass().add("text-input");
+        genderField.setPrefHeight(40);
         String gender = (user.getGender()== Gender.MALE) ? "MALE" : "FEMALE";
         genderField.setText(gender);
         genderField.setEditable(false);
         genderField.setFocusTraversable(false);
 
         emailField = new TextField();
-        emailField.setStyle(textFieldStyle);
+        emailField.getStyleClass().add("text-input");
+        emailField.setPrefHeight(40);
         emailField.setText(user.getAccount().getEmail());
         emailField.setEditable(false);
         emailField.setFocusTraversable(false);
@@ -134,10 +127,7 @@ public class AccountUI extends Application {
         grid.setHgap(20);
         grid.setVgap(15);
         grid.setPadding(new Insets(25));
-        grid.setStyle("-fx-background-color: " + CARD_BACKGROUND + "; " +
-                "-fx-border-color: " + BORDER_COLOR + "; " +
-                "-fx-border-width: 1; " +
-                "-fx-border-radius: 12;");
+        grid.getStyleClass().add("form-grid");
 
         grid.add(firstNameLabel, 0, 0);
         grid.add(lastNameLabel, 1, 0);
@@ -152,70 +142,13 @@ public class AccountUI extends Application {
         grid.add(emailLabel, 0, 4);
         grid.add(emailField, 0, 5, 2, 1);
 
-        String primaryButtonStyle = "-fx-background-color: " + PRIMARY_BLUE + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 12 25; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 14px; " +
-                "-fx-cursor: hand; " +
-                "-fx-min-width: 160;";
-
         modifyButton = new Button("Modify");
-        modifyButton.setStyle("-fx-background-color: " + WARNING_COLOR + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 12 25; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 14px; " +
-                "-fx-cursor: hand; " +
-                "-fx-min-width: 160;");
+        modifyButton.getStyleClass().addAll("button-base", "button-warning");
         modifyButton.setOnAction(e -> modifyButtonAction());
 
-        modifyButton.setOnMouseEntered(e -> modifyButton.setStyle("-fx-background-color: " + HOVER_WARNING + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 12 25; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 14px; " +
-                "-fx-cursor: hand; " +
-                "-fx-min-width: 160;"));
-        modifyButton.setOnMouseExited(e -> modifyButton.setStyle("-fx-background-color: " + WARNING_COLOR + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 12 25; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 14px; " +
-                "-fx-cursor: hand; " +
-                "-fx-min-width: 160;"));
-
         changePasswordButton = new Button("Change password");
-        changePasswordButton.setStyle("-fx-background-color: " + ACCENT_GREEN + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 12 25; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 14px; " +
-                "-fx-cursor: hand; " +
-                "-fx-min-width: 160;");
+        changePasswordButton.getStyleClass().addAll("button-base", "button-accent");
         changePasswordButton.setOnAction(e -> changePasswordButtonAction());
-
-        changePasswordButton.setOnMouseEntered(e -> changePasswordButton.setStyle("-fx-background-color: " + HOVER_GREEN + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 12 25; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 14px; " +
-                "-fx-cursor: hand; " +
-                "-fx-min-width: 160;"));
-        changePasswordButton.setOnMouseExited(e -> changePasswordButton.setStyle("-fx-background-color: " + ACCENT_GREEN + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 12 25; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 14px; " +
-                "-fx-cursor: hand; " +
-                "-fx-min-width: 160;"));
 
         buttonsBox = new VBox(10, changePasswordButton, modifyButton/*, okButton*/);
         buttonsBox.setAlignment(Pos.CENTER_RIGHT);
@@ -224,7 +157,7 @@ public class AccountUI extends Application {
         root = new VBox(15, grid, buttonsBox);
         root.setPadding(new Insets(30));
         root.setAlignment(Pos.TOP_CENTER);
-        root.setStyle("-fx-background-color: " + LIGHT_BACKGROUND + ";");
+        root.getStyleClass().add("page-background");
 
         addModificationListener(firstNameField, user.getFirstName());
         addModificationListener(lastNameField, user.getLastName());
@@ -251,12 +184,7 @@ public class AccountUI extends Application {
         genderBox.getItems().addAll("Male", "Female");
         genderBox.setPromptText("Select");
         genderBox.setPrefHeight(40);
-        genderBox.setStyle(
-                "-fx-background-color: " + CARD_BACKGROUND + ";" +
-                        "-fx-border-color: " + PRIMARY_BLUE + ";" +
-                        "-fx-border-width: 2;" +
-                        "-fx-border-radius: 6;"
-        );
+        genderBox.getStyleClass().addAll("combo-input", "editable-field");
         String gender = (user.getGender()== Gender.MALE) ? "MALE" : "FEMALE";
         genderBox.setValue(gender);
         grid.getChildren().remove(genderField);
@@ -268,23 +196,10 @@ public class AccountUI extends Application {
             }
         });
 
-        modifyButton.setStyle("-fx-background-color: " + ACCENT_GREEN + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 12 25; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 14px; " +
-                "-fx-cursor: hand; " +
-                "-fx-min-width: 160;");
-
-        modifyButton.setOnMouseEntered(e -> modifyButton.setStyle("-fx-background-color: " + HOVER_GREEN + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 12 25; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 14px; " +
-                "-fx-cursor: hand; " +
-                "-fx-min-width: 160;"));
+        modifyButton.getStyleClass().remove("button-warning");
+        if (!modifyButton.getStyleClass().contains("button-accent")) {
+            modifyButton.getStyleClass().add("button-accent");
+        }
     }
 
     private void saveChangesAction() {
@@ -298,8 +213,21 @@ public class AccountUI extends Application {
         }
         if(!isModified){
             showError("No changes detected");
+
+            grid.getChildren().remove(genderBox);
+            grid.add(genderField, 1, 3);
+            enableEditing(false);
+
+            modifyButton.setText("Modify");
+            modifyButton.setOnAction(e -> modifyButtonAction());
+
+            modifyButton.getStyleClass().remove("button-accent");
+            if (!modifyButton.getStyleClass().contains("button-warning")) {
+                modifyButton.getStyleClass().add("button-warning");
+            }
             return;
         }
+
         user.setFirstName(firstNameField.getText());
         user.setLastName(lastNameField.getText());
         Date newBirth = Date.valueOf(dateOfBirthField.getText());
@@ -320,23 +248,10 @@ public class AccountUI extends Application {
         modifyButton.setText("Modify");
         modifyButton.setOnAction(e -> modifyButtonAction());
 
-        modifyButton.setStyle("-fx-background-color: " + WARNING_COLOR + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 12 25; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 14px; " +
-                "-fx-cursor: hand; " +
-                "-fx-min-width: 160;");
-
-        modifyButton.setOnMouseEntered(e -> modifyButton.setStyle("-fx-background-color: " + HOVER_WARNING + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 12 25; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 14px; " +
-                "-fx-cursor: hand; " +
-                "-fx-min-width: 160;"));
+        modifyButton.getStyleClass().remove("button-accent");
+        if (!modifyButton.getStyleClass().contains("button-warning")) {
+            modifyButton.getStyleClass().add("button-warning");
+        }
 
         showSuccess("Changes saved successfully!");
     }
@@ -352,25 +267,24 @@ public class AccountUI extends Application {
         dateOfBirthField.setEditable(enable);
         genderField.setEditable(enable);
 
-        String borderColor = enable ? PRIMARY_BLUE : BORDER_COLOR;
-        String fieldStyle = "-fx-background-color: " + (enable ? "#F0F7FF" : CARD_BACKGROUND) + "; " +
-                "-fx-border-color: " + borderColor + "; " +
-                "-fx-border-width: " + (enable ? "2" : "1.5") + "; " +
-                "-fx-border-radius: 6; " +
-                "-fx-padding: 10; " +
-                "-fx-font-size: 14px; " +
-                "-fx-text-fill: " + TEXT_DARK + "; " +
-                "-fx-pref-height: 40;";
+        toggleEditableClass(firstNameField, enable);
+        toggleEditableClass(lastNameField, enable);
+        toggleEditableClass(dateOfBirthField, enable);
+        toggleEditableClass(genderField, enable);
+        toggleEditableClass(emailField, enable);
+    }
 
-        firstNameField.setStyle(fieldStyle);
-        lastNameField.setStyle(fieldStyle);
-        dateOfBirthField.setStyle(fieldStyle);
-        genderField.setStyle(fieldStyle);
-        emailField.setStyle(fieldStyle);
+    private void toggleEditableClass(Control control, boolean enable) {
+        if (enable) {
+            if (!control.getStyleClass().contains("editable-field")) {
+                control.getStyleClass().add("editable-field");
+            }
+        } else {
+            control.getStyleClass().remove("editable-field");
+        }
     }
 
     private void openChangePasswordDialog() {
-        // TODO: Implémenter la fenêtre de changement de mot de passe
         Stage accountStage = new Stage();
         ChangePasswordUI changePasswordUI = new ChangePasswordUI(user.getAccount());
         try {
@@ -386,10 +300,7 @@ public class AccountUI extends Application {
         alert.setHeaderText(null);
         alert.setContentText(message);
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.setStyle("-fx-background-color: " + CARD_BACKGROUND + "; " +
-                "-fx-border-color: " + BORDER_COLOR + "; " +
-                "-fx-border-width: 1; " +
-                "-fx-border-radius: 8;");
+        dialogPane.getStyleClass().add("alert-pane-error");
 
         alert.showAndWait();
     }
@@ -401,10 +312,7 @@ public class AccountUI extends Application {
         alert.setContentText(message);
 
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.setStyle("-fx-background-color: " + CARD_BACKGROUND + "; " +
-                "-fx-border-color: " + ACCENT_GREEN + "; " +
-                "-fx-border-width: 1; " +
-                "-fx-border-radius: 8;");
+        dialogPane.getStyleClass().add("alert-pane-success");
 
         alert.showAndWait();
     }

@@ -11,8 +11,6 @@ import org.controller.AccountController;
 import org.utils.ValidationUtils;
 import org.dto.Account;
 
-import static org.views.style.AppColors.*;
-
 /**
  * ChangePasswordUI
  *
@@ -25,6 +23,8 @@ import static org.views.style.AppColors.*;
  */
 
 public class ChangePasswordUI extends Application {
+
+    private static final String APP_STYLESHEET = "/styles/app.css";
 
     private PasswordField oldPasswordField;
     private PasswordField newPasswordField;
@@ -48,6 +48,7 @@ public class ChangePasswordUI extends Application {
         configureUI();
 
         Scene scene = new Scene(vbox, 500, 600);
+        scene.getStylesheets().add(getClass().getResource(APP_STYLESHEET).toExternalForm());
 
         primaryStage.setTitle("Change Password – XSON");
         primaryStage.setScene(scene);
@@ -57,82 +58,58 @@ public class ChangePasswordUI extends Application {
     }
 
     private void configureUI(){
-        String labelStyle = "-fx-font-weight: 600; " +
-                "-fx-text-fill: " + TEXT_DARK + "; " +
-                "-fx-font-size: 14px;";
-
         Label oldPasswordLabel = new Label("Old password * :");
-        oldPasswordLabel.setStyle(labelStyle);
+        oldPasswordLabel.getStyleClass().add("form-label");
 
         Label newPasswordLabel = new Label("New password * :");
-        newPasswordLabel.setStyle(labelStyle);
+        newPasswordLabel.getStyleClass().add("form-label");
 
         Label confirmationPasswordLabel = new Label("Confirm password * :");
-        confirmationPasswordLabel.setStyle(labelStyle);
-
-        String passwordFieldStyle = "-fx-background-color: " + CARD_BACKGROUND + "; " +
-                "-fx-border-color: " + BORDER_COLOR + "; " +
-                "-fx-border-width: 1.5; " +
-                "-fx-border-radius: 6; " +
-                "-fx-padding: 10; " +
-                "-fx-font-size: 14px; " +
-                "-fx-text-fill: " + TEXT_DARK + "; " +
-                "-fx-pref-height: 40; " +
-                "-fx-pref-width: 250;";
+        confirmationPasswordLabel.getStyleClass().add("form-label");
 
         oldPasswordField = new PasswordField();
-        oldPasswordField.setStyle(passwordFieldStyle);
+        oldPasswordField.getStyleClass().add("text-input");
+        oldPasswordField.setPrefHeight(40);
+        oldPasswordField.setPrefWidth(250);
         oldPasswordField.setPromptText("Enter your old password");
 
         newPasswordField = new PasswordField();
-        newPasswordField.setStyle(passwordFieldStyle);
+        newPasswordField.getStyleClass().add("text-input");
+        newPasswordField.setPrefHeight(40);
+        newPasswordField.setPrefWidth(250);
         newPasswordField.setPromptText("Minimum 8 characters");
 
         confirmationPasswordField = new PasswordField();
-        confirmationPasswordField.setStyle(passwordFieldStyle);
+        confirmationPasswordField.getStyleClass().add("text-input");
+        confirmationPasswordField.setPrefHeight(40);
+        confirmationPasswordField.setPrefWidth(250);
         confirmationPasswordField.setPromptText("Repeat the new password");
 
         errorLabel = new Label();
-        errorLabel.setStyle("-fx-text-fill: " + ERROR_COLOR + "; " +
-                "-fx-font-size: 13px; " +
-                "-fx-font-weight: 500; " +
-                "-fx-padding: 5 0 10 0;");
+        errorLabel.getStyleClass().add("error-text");
         errorLabel.setVisible(false);
-        String buttonStyle = "-fx-background-color: " + ACCENT_GREEN + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 12 40; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 14px; " +
-                "-fx-cursor: hand;";
 
         validButton = new Button("Change password");
-        validButton.setStyle(buttonStyle);
+        validButton.getStyleClass().addAll("button-base", "button-accent");
         validButton.setOnAction(e -> validButtonAction());
 
-        validButton.setOnMouseEntered(e -> validButton.setStyle(buttonStyle +
-                " -fx-background-color: " + HOVER_GREEN + ";"));
-        validButton.setOnMouseExited(e -> validButton.setStyle(buttonStyle));
-
         Label passwordStrengthLabel = new Label("Security requirements :");
-        passwordStrengthLabel.setStyle("-fx-font-weight: 600; " +
-                "-fx-text-fill: " + TEXT_DARK + "; " +
-                "-fx-font-size: 13px; " +
-                "-fx-padding: 10 0 5 0;");
+        passwordStrengthLabel.getStyleClass().add("form-label");
+        passwordStrengthLabel.setPadding(new Insets(10, 0, 5, 0));
 
         VBox criteriaBox = new VBox(5);
 
         Label criteria1 = new Label("• At least 8 characters");
-        criteria1.setStyle("-fx-text-fill: #666666; -fx-font-size: 12px;");
+        criteria1.getStyleClass().add("criteria-text");
 
         Label criteria2 = new Label("• At least one uppercase and one lowercase letter");
-        criteria2.setStyle("-fx-text-fill: #666666; -fx-font-size: 12px;");
+        criteria2.getStyleClass().add("criteria-text");
 
         Label criteria3 = new Label("• At least one digit");
-        criteria3.setStyle("-fx-text-fill: #666666; -fx-font-size: 12px;");
+        criteria3.getStyleClass().add("criteria-text");
 
         Label criteria4 = new Label("• At least one special character (@#$%^&+=)");
-        criteria4.setStyle("-fx-text-fill: #666666; -fx-font-size: 12px;");
+        criteria4.getStyleClass().add("criteria-text");
 
         criteriaBox.getChildren().addAll(criteria1, criteria2, criteria3, criteria4);
         criteriaBox.setPadding(new Insets(0, 0, 15, 0));
@@ -140,7 +117,7 @@ public class ChangePasswordUI extends Application {
         vbox = new VBox(12);
         vbox.setPadding(new Insets(30));
         vbox.setAlignment(Pos.TOP_CENTER);
-        vbox.setStyle("-fx-background-color: " + LIGHT_BACKGROUND + ";");
+        vbox.getStyleClass().add("page-background");
 
         vbox.getChildren().addAll(
                 oldPasswordLabel,
@@ -197,35 +174,11 @@ public class ChangePasswordUI extends Application {
 
     private void validatePasswordStrength(String password) {
         if (password.length() < 8) {
-            newPasswordField.setStyle("-fx-border-color: " + ERROR_COLOR + "; " +
-                    "-fx-background-color: " + CARD_BACKGROUND + "; " +
-                    "-fx-border-width: 1.5; " +
-                    "-fx-border-radius: 6; " +
-                    "-fx-padding: 10; " +
-                    "-fx-font-size: 14px; " +
-                    "-fx-text-fill: " + TEXT_DARK + "; " +
-                    "-fx-pref-height: 40; " +
-                    "-fx-pref-width: 250;");
+            setFieldState(newPasswordField, "input-error");
         } else if (ValidationUtils.isPasswordStrong(password)) {
-            newPasswordField.setStyle("-fx-border-color: " + ACCENT_GREEN + "; " +
-                    "-fx-background-color: " + CARD_BACKGROUND + "; " +
-                    "-fx-border-width: 1.5; " +
-                    "-fx-border-radius: 6; " +
-                    "-fx-padding: 10; " +
-                    "-fx-font-size: 14px; " +
-                    "-fx-text-fill: " + TEXT_DARK + "; " +
-                    "-fx-pref-height: 40; " +
-                    "-fx-pref-width: 250;");
+            setFieldState(newPasswordField, "input-success");
         } else {
-            newPasswordField.setStyle("-fx-border-color: " + BORDER_COLOR + "; " +
-                    "-fx-background-color: " + CARD_BACKGROUND + "; " +
-                    "-fx-border-width: 1.5; " +
-                    "-fx-border-radius: 6; " +
-                    "-fx-padding: 10; " +
-                    "-fx-font-size: 14px; " +
-                    "-fx-text-fill: " + TEXT_DARK + "; " +
-                    "-fx-pref-height: 40; " +
-                    "-fx-pref-width: 250;");
+            setFieldState(newPasswordField, null);
         }
     }
 
@@ -234,35 +187,11 @@ public class ChangePasswordUI extends Application {
         String confirmation = confirmationPasswordField.getText();
 
         if (!confirmation.isEmpty() && !newPassword.equals(confirmation)) {
-            confirmationPasswordField.setStyle("-fx-border-color: " + ERROR_COLOR + "; " +
-                    "-fx-background-color: " + CARD_BACKGROUND + "; " +
-                    "-fx-border-width: 1.5; " +
-                    "-fx-border-radius: 6; " +
-                    "-fx-padding: 10; " +
-                    "-fx-font-size: 14px; " +
-                    "-fx-text-fill: " + TEXT_DARK + "; " +
-                    "-fx-pref-height: 40; " +
-                    "-fx-pref-width: 250;");
+            setFieldState(confirmationPasswordField, "input-error");
         } else if (!confirmation.isEmpty() && newPassword.equals(confirmation)) {
-            confirmationPasswordField.setStyle("-fx-border-color: " + ACCENT_GREEN + "; " +
-                    "-fx-background-color: " + CARD_BACKGROUND + "; " +
-                    "-fx-border-width: 1.5; " +
-                    "-fx-border-radius: 6; " +
-                    "-fx-padding: 10; " +
-                    "-fx-font-size: 14px; " +
-                    "-fx-text-fill: " + TEXT_DARK + "; " +
-                    "-fx-pref-height: 40; " +
-                    "-fx-pref-width: 250;");
+            setFieldState(confirmationPasswordField, "input-success");
         } else {
-            confirmationPasswordField.setStyle("-fx-border-color: " + BORDER_COLOR + "; " +
-                    "-fx-background-color: " + CARD_BACKGROUND + "; " +
-                    "-fx-border-width: 1.5; " +
-                    "-fx-border-radius: 6; " +
-                    "-fx-padding: 10; " +
-                    "-fx-font-size: 14px; " +
-                    "-fx-text-fill: " + TEXT_DARK + "; " +
-                    "-fx-pref-height: 40; " +
-                    "-fx-pref-width: 250;");
+            setFieldState(confirmationPasswordField, null);
         }
     }
 
@@ -270,41 +199,13 @@ public class ChangePasswordUI extends Application {
         errorLabel.setText(message);
         errorLabel.setVisible(true);
 
-        validButton.setStyle("-fx-background-color: " + ERROR_COLOR + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 12 40; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 14px; " +
-                "-fx-cursor: hand;");
-
-        validButton.setOnMouseEntered(e -> validButton.setStyle("-fx-background-color: " + HOVER_ERROR + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 12 40; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 14px; " +
-                "-fx-cursor: hand;"));
+        switchButtonState(true);
     }
 
     private void clearError() {
         errorLabel.setVisible(false);
 
-        validButton.setStyle("-fx-background-color: " + ACCENT_GREEN + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 12 40; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 14px; " +
-                "-fx-cursor: hand;");
-
-        validButton.setOnMouseEntered(e -> validButton.setStyle("-fx-background-color: " + HOVER_GREEN + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 12 40; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 14px; " +
-                "-fx-cursor: hand;"));
+        switchButtonState(false);
     }
 
     private void showSuccess(String message) {
@@ -314,10 +215,7 @@ public class ChangePasswordUI extends Application {
         alert.setContentText(message);
 
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.setStyle("-fx-background-color: " + CARD_BACKGROUND + "; " +
-                "-fx-border-color: " + ACCENT_GREEN + "; " +
-                "-fx-border-width: 1; " +
-                "-fx-border-radius: 8;");
+        dialogPane.getStyleClass().add("alert-pane-success");
 
         alert.showAndWait();
     }
@@ -335,6 +233,18 @@ public class ChangePasswordUI extends Application {
                 e.printStackTrace();
             }
         }).start();
+    }
+
+    private void setFieldState(Control field, String stateClass) {
+        field.getStyleClass().removeAll("input-error", "input-success");
+        if (stateClass != null && !field.getStyleClass().contains(stateClass)) {
+            field.getStyleClass().add(stateClass);
+        }
+    }
+
+    private void switchButtonState(boolean error) {
+        validButton.getStyleClass().removeAll("button-error", "button-accent");
+        validButton.getStyleClass().add(error ? "button-error" : "button-accent");
     }
 
 }

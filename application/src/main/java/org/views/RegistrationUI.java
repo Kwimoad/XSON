@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import org.controller.CreateAccountController;
 import org.utils.ValidationUtils;
 import org.dto.User;
-import static org.views.style.AppColors.*;
 
 /**
  * RegistrationUI
@@ -30,6 +29,8 @@ import static org.views.style.AppColors.*;
  */
 
 public class RegistrationUI extends Application {
+
+    private static final String APP_STYLESHEET = "/styles/app.css";
 
     private Button backButton;
     private Button validButton;
@@ -55,6 +56,7 @@ public class RegistrationUI extends Application {
         configureUI();
 
         scene = new Scene(root, 500, 600);
+    scene.getStylesheets().add(getClass().getResource(APP_STYLESHEET).toExternalForm());
 
         stage.setTitle("Account Creation – XSON");
         stage.setScene(scene);
@@ -64,80 +66,55 @@ public class RegistrationUI extends Application {
     }
 
     private void configureUI(){
-        String labelStyle = "-fx-font-weight: 600; " +
-                "-fx-text-fill: " + TEXT_DARK + "; " +
-                "-fx-font-size: 14px;";
-
         firstNameLabel = new Label("First name * :");
-        firstNameLabel.setStyle(labelStyle);
+    firstNameLabel.getStyleClass().add("form-label");
 
         lastNameLabel = new Label("Last name * :");
-        lastNameLabel.setStyle(labelStyle);
+    lastNameLabel.getStyleClass().add("form-label");
 
         dateOfBirthLabel = new Label("Date of birth * :");
-        dateOfBirthLabel.setStyle(labelStyle);
+    dateOfBirthLabel.getStyleClass().add("form-label");
 
         genderLabel = new Label("Gender * :");
-        genderLabel.setStyle(labelStyle);
+    genderLabel.getStyleClass().add("form-label");
 
         emailLabel = new Label("Email * :");
-        emailLabel.setStyle(labelStyle);
+    emailLabel.getStyleClass().add("form-label");
 
         passwordLabel = new Label("Password * :");
-        passwordLabel.setStyle(labelStyle);
-
-        String textFieldStyle = "-fx-background-color: " + CARD_BACKGROUND + "; " +
-                "-fx-border-color: " + BORDER_COLOR + "; " +
-                "-fx-border-width: 1.5; " +
-                "-fx-border-radius: 6; " +
-                "-fx-padding: 10; " +
-                "-fx-font-size: 14px; " +
-                "-fx-text-fill: " + TEXT_DARK + "; " +
-                "-fx-pref-height: 40;";
+    passwordLabel.getStyleClass().add("form-label");
 
         firstNameField = new TextField();
-        firstNameField.setStyle(textFieldStyle);
+    firstNameField.getStyleClass().add("text-input");
         firstNameField.setPromptText("Enter your first name");
 
         lastNameField = new TextField();
-        lastNameField.setStyle(textFieldStyle);
+    lastNameField.getStyleClass().add("text-input");
         lastNameField.setPromptText("Enter your last name");
 
         dateOfBirthField = new TextField();
-        dateOfBirthField.setStyle(textFieldStyle);
+    dateOfBirthField.getStyleClass().add("text-input");
         dateOfBirthField.setPromptText("DD/MM/YYYY");
 
         emailField = new TextField();
-        emailField.setStyle(textFieldStyle);
+    emailField.getStyleClass().add("text-input");
         emailField.setPromptText("exemple@email.com");
 
         passwordField = new PasswordField();
-        passwordField.setStyle(textFieldStyle);
+    passwordField.getStyleClass().add("text-input");
         passwordField.setPromptText("Minimum 8 characters");
 
         genderBox = new ComboBox<>();
         genderBox.getItems().addAll("Male", "Female");
         genderBox.setPromptText("Select");
         genderBox.setPrefHeight(40);
-
-        genderBox.setStyle("-fx-background-color: " + CARD_BACKGROUND + "; " +
-                "-fx-border-color: " + BORDER_COLOR + "; " +
-                "-fx-border-width: 1.5; " +
-                "-fx-border-radius: 6; " +
-                "-fx-padding: 5; " +
-                "-fx-font-size: 14px; " +
-                "-fx-text-fill: " + TEXT_DARK + ";");
-
-        genderBox.getEditor().setStyle("-fx-text-fill: " + TEXT_DARK + ";");
+    genderBox.getStyleClass().add("combo-input");
 
         grid = new GridPane();
-        grid.setPadding(new Insets(25));
-        grid.setHgap(20);
-        grid.setVgap(15);
-        grid.setStyle("-fx-background-color: " + CARD_BACKGROUND + "; " +
-                "-fx-border-color: " + BORDER_COLOR + "; " +
-                "-fx-border-width: 1; " +
-                "-fx-border-radius: 12;");
+    grid.setPadding(new Insets(25));
+    grid.setHgap(20);
+    grid.setVgap(15);
+    grid.getStyleClass().add("form-grid");
 
         grid.add(firstNameLabel, 0, 0);
         grid.add(lastNameLabel, 1, 0);
@@ -155,54 +132,25 @@ public class RegistrationUI extends Application {
         grid.add(passwordLabel, 0, 6);
         grid.add(passwordField, 0, 7, 2, 1);
 
-        String primaryButtonStyle = "-fx-background-color: " + ACCENT_GREEN + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 12 30; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 14px; " +
-                "-fx-cursor: hand; " +
-                "-fx-min-width: 160;";
-
         validButton = new Button("Create account");
-        validButton.setStyle(primaryButtonStyle);
+        validButton.getStyleClass().addAll("button-base", "button-accent");
         validButton.setOnAction(e -> validButtonAction());
 
-        validButton.setOnMouseEntered(e -> validButton.setStyle(primaryButtonStyle +
-                " -fx-background-color: " + HOVER_GREEN + ";"));
-        validButton.setOnMouseExited(e -> validButton.setStyle(primaryButtonStyle));
-
-        String secondaryButtonStyle = "-fx-background-color: " + SECONDARY_BLUE + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 12 30; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 14px; " +
-                "-fx-cursor: hand; " +
-                "-fx-min-width: 160;";
-
         backButton = new Button("Back");
-        backButton.setStyle(secondaryButtonStyle);
+        backButton.getStyleClass().addAll("button-base", "button-secondary");
         backButton.setOnAction(e -> backButtonAction());
-
-        backButton.setOnMouseEntered(e -> backButton.setStyle(secondaryButtonStyle +
-                " -fx-background-color: " + HOVER_BLUE + ";"));
-        backButton.setOnMouseExited(e -> backButton.setStyle(secondaryButtonStyle));
 
         HBox buttonBox = new HBox(15, backButton, validButton);
         buttonBox.setAlignment(Pos.CENTER);
         buttonBox.setPadding(new Insets(20, 0, 0, 0));
 
         Label requiredNote = new Label("* Required fields");
-        requiredNote.setStyle("-fx-font-size: 12px; " +
-                "-fx-text-fill: #666666; " +
-                "-fx-font-style: italic; " +
-                "-fx-padding: 5 0 0 0;");
+        requiredNote.getStyleClass().add("note-text");
 
         root = new VBox(15, grid, requiredNote, buttonBox);
         root.setPadding(new Insets(30));
         root.setAlignment(Pos.TOP_CENTER);
-        root.setStyle("-fx-background-color: " + LIGHT_BACKGROUND + ";");
+        root.getStyleClass().add("page-background");
     }
 
     public void backButtonAction() {
@@ -259,10 +207,7 @@ public class RegistrationUI extends Application {
         alert.setHeaderText(null);
         alert.setContentText(message);
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.setStyle("-fx-background-color: " + CARD_BACKGROUND + "; " +
-                "-fx-border-color: " + BORDER_COLOR + "; " +
-                "-fx-border-width: 1; " +
-                "-fx-border-radius: 8;");
+        dialogPane.getStyleClass().add("alert-pane-error");
 
         alert.showAndWait();
     }
@@ -273,10 +218,7 @@ public class RegistrationUI extends Application {
         alert.setHeaderText(null);
         alert.setContentText(message);
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.setStyle("-fx-background-color: " + CARD_BACKGROUND + "; " +
-                "-fx-border-color: " + ACCENT_GREEN + "; " +
-                "-fx-border-width: 1; " +
-                "-fx-border-radius: 8;");
+        dialogPane.getStyleClass().add("alert-pane-success");
 
         alert.showAndWait();
     }

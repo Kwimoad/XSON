@@ -16,8 +16,6 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Map;
 
-import static org.views.style.AppColors.*;
-
 /**
  * ArchivesUI
  *
@@ -28,6 +26,8 @@ import static org.views.style.AppColors.*;
  * The class extends JavaFX Application and can be run as a standalone window.
  */
 public class ArchivesUI extends Application {
+
+    private static final String APP_STYLESHEET = "/styles/app.css";
 
     private TreeView<String> archiveTree;
     private Map<Date, List<FilePairInfo>> filePairsByDate;
@@ -59,42 +59,15 @@ public class ArchivesUI extends Application {
         FileController fileController = new FileController();
 
         Label titleLabel = new Label("Archives");
-        titleLabel.setStyle("-fx-font-size: 24px; " +
-                "-fx-font-weight: 700; " +
-                "-fx-text-fill: " + PRIMARY_BLUE + "; " +
-                "-fx-padding: 20 0 20 0;");
+        titleLabel.getStyleClass().add("page-title");
 
         Button backButton = new Button("← Back");
-        backButton.setStyle("-fx-background-color: " + SECONDARY_BLUE + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 8 15; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 13px; " +
-                "-fx-cursor: hand;");
-
-        backButton.setOnMouseEntered(e -> backButton.setStyle("-fx-background-color: " + HOVER_BLUE + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 8 15; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 13px; " +
-                "-fx-cursor: hand;"));
-        backButton.setOnMouseExited(e -> backButton.setStyle("-fx-background-color: " + SECONDARY_BLUE + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 8 15; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 13px; " +
-                "-fx-cursor: hand;"));
+        backButton.getStyleClass().addAll("button-base", "button-secondary");
 
         backButton.setOnAction(e -> primaryStage.close());
 
         archiveTree = new TreeView<>();
-        archiveTree.setStyle("-fx-control-inner-background: " + CARD_BACKGROUND + "; " +
-                "-fx-border-color: " + BORDER_COLOR + "; " +
-                "-fx-border-width: 1; " +
-                "-fx-border-radius: 8;");
+        archiveTree.getStyleClass().add("tree-view");
 
         archiveTree.setCellFactory(tv -> new TreeCell<String>() {
             @Override
@@ -103,28 +76,20 @@ public class ArchivesUI extends Application {
                 if (empty || item == null) {
                     setText(null);
                     setGraphic(null);
-                    setStyle(null);
+                    getStyleClass().removeAll("tree-level-0", "tree-level-1", "tree-level-2");
                 } else {
                     setText(item);
 
                     TreeItem<String> treeItem = getTreeItem();
                     if (treeItem != null) {
                         int level = getTreeItemLevel(treeItem);
+                        getStyleClass().removeAll("tree-level-0", "tree-level-1", "tree-level-2");
                         if (level == 0) {
-                            setStyle("-fx-font-weight: bold; " +
-                                    "-fx-font-size: 16px; " +
-                                    "-fx-text-fill: " + PRIMARY_BLUE + "; " +
-                                    "-fx-padding: 5 0 5 10;");
+                            getStyleClass().add("tree-level-0");
                         } else if (level == 1) { // Dates
-                            setStyle("-fx-font-weight: 600; " +
-                                    "-fx-font-size: 14px; " +
-                                    "-fx-text-fill: " + TEXT_DARK + "; " +
-                                    "-fx-padding: 5 0 5 20;");
+                            getStyleClass().add("tree-level-1");
                         } else {
-                            setStyle("-fx-font-weight: normal; " +
-                                    "-fx-font-size: 13px; " +
-                                    "-fx-text-fill: #555555; " +
-                                    "-fx-padding: 3 0 3 30;");
+                            getStyleClass().add("tree-level-2");
                         }
                     }
                 }
@@ -143,68 +108,39 @@ public class ArchivesUI extends Application {
 
         ScrollPane scrollPane = new ScrollPane(archiveTree);
         scrollPane.setFitToWidth(true);
-        scrollPane.setStyle("-fx-background-color: transparent; " +
-                "-fx-border-color: transparent;");
+        scrollPane.getStyleClass().add("scroll-transparent");
 
         Button refreshButton = new Button("Refresh");
-        refreshButton.setStyle("-fx-background-color: " + ACCENT_GREEN + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 8 20; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 13px; " +
-                "-fx-cursor: hand;");
-
-        refreshButton.setOnMouseEntered(e -> refreshButton.setStyle("-fx-background-color: " + ACCENT_GREEN + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 8 20; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 13px; " +
-                "-fx-cursor: hand; " +
-                "-fx-scale-x: 1.05; " +
-                "-fx-scale-y: 1.05;"));
-        refreshButton.setOnMouseExited(e -> refreshButton.setStyle("-fx-background-color: " + ACCENT_GREEN + "; " +
-                "-fx-text-fill: " + TEXT_LIGHT + "; " +
-                "-fx-font-weight: 600; " +
-                "-fx-padding: 8 20; " +
-                "-fx-background-radius: 6; " +
-                "-fx-font-size: 13px; " +
-                "-fx-cursor: hand;"));
+        refreshButton.getStyleClass().addAll("button-base", "button-accent");
 
         refreshButton.setOnAction(e -> loadArchiveData(fileController));
 
         VBox fileInfoBox = new VBox(10);
         fileInfoBox.setPadding(new Insets(15));
-        fileInfoBox.setStyle("-fx-background-color: " + CARD_BACKGROUND + "; " +
-                "-fx-border-color: " + BORDER_COLOR + "; " +
-                "-fx-border-width: 1; " +
-                "-fx-border-radius: 8;");
+        fileInfoBox.getStyleClass().add("info-box");
 
         Label infoTitle = new Label("File details");
-        infoTitle.setStyle("-fx-font-weight: bold; " +
-                "-fx-font-size: 16px; " +
-                "-fx-text-fill: " + PRIMARY_BLUE + ";");
+        infoTitle.getStyleClass().add("section-title");
 
         Label xmlLabel = new Label("XML file:");
-        xmlLabel.setStyle("-fx-font-weight: 600; -fx-text-fill: " + TEXT_DARK + ";");
+        xmlLabel.getStyleClass().add("info-label");
 
         xmlValue = new Label();
-        xmlValue.setStyle("-fx-text-fill: #555555; -fx-wrap-text: true;");
+        xmlValue.getStyleClass().add("info-value");
         xmlValue.setMaxWidth(300);
 
         Label jsonLabel = new Label("JSON file:");
-        jsonLabel.setStyle("-fx-font-weight: 600; -fx-text-fill: " + TEXT_DARK + ";");
+        jsonLabel.getStyleClass().add("info-label");
 
         jsonValue = new Label();
-        jsonValue.setStyle("-fx-text-fill: #555555; -fx-wrap-text: true;");
+        jsonValue.getStyleClass().add("info-value");
         jsonValue.setMaxWidth(300);
 
         Label pathsLabel = new Label("Paths:");
-        pathsLabel.setStyle("-fx-font-weight: 600; -fx-text-fill: " + TEXT_DARK + ";");
+        pathsLabel.getStyleClass().add("info-label");
 
         pathsValue = new Label();
-        pathsValue.setStyle("-fx-text-fill: #555555; -fx-font-size: 12px; -fx-wrap-text: true;");
+        pathsValue.getStyleClass().add("info-value");
         pathsValue.setMaxWidth(300);
 
         fileInfoBox.getChildren().addAll(infoTitle, xmlLabel, xmlValue, jsonLabel, jsonValue, pathsLabel, pathsValue);
@@ -214,13 +150,11 @@ public class ArchivesUI extends Application {
         });
 
         BorderPane mainPane = new BorderPane();
-        mainPane.setStyle("-fx-background-color: " + LIGHT_BACKGROUND + ";");
+        mainPane.getStyleClass().add("page-background");
 
         HBox headerBox = new HBox(15);
         headerBox.setPadding(new Insets(20, 20, 10, 20));
-        headerBox.setStyle("-fx-background-color: " + CARD_BACKGROUND + "; " +
-                "-fx-border-color: " + BORDER_COLOR + "; " +
-                "-fx-border-width: 0 0 1 0;");
+        headerBox.getStyleClass().add("header-bar");
 
         HBox leftHeader = new HBox(10, backButton);
         leftHeader.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
@@ -241,7 +175,7 @@ public class ArchivesUI extends Application {
         treeBox.setPrefWidth(400);
 
         Label treeLabel = new Label("Archives by date:");
-        treeLabel.setStyle("-fx-font-weight: 600; -fx-font-size: 14px; -fx-text-fill: " + TEXT_DARK + ";");
+        treeLabel.getStyleClass().add("section-title");
 
         treeBox.getChildren().addAll(treeLabel, scrollPane);
         VBox.setVgrow(scrollPane, Priority.ALWAYS);
@@ -258,6 +192,7 @@ public class ArchivesUI extends Application {
         mainPane.setCenter(contentBox);
 
         Scene scene = new Scene(mainPane, 1000, 650);
+        scene.getStylesheets().add(getClass().getResource(APP_STYLESHEET).toExternalForm());
 
         primaryStage.setTitle("Archives - XSON");
         primaryStage.setScene(scene);
@@ -354,10 +289,7 @@ public class ArchivesUI extends Application {
         alert.setContentText(message);
 
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.setStyle("-fx-background-color: " + CARD_BACKGROUND + "; " +
-                "-fx-border-color: " + BORDER_COLOR + "; " +
-                "-fx-border-width: 1; " +
-                "-fx-border-radius: 8;");
+        dialogPane.getStyleClass().add("alert-pane-error");
 
         alert.showAndWait();
     }

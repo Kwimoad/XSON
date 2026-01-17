@@ -25,6 +25,9 @@ public class AuthenticationController {
     public User login(String email, String password) {
         if(ValidationUtils.isEmail(email) && ValidationUtils.isNotEmpty(password)){
             Account account = authService.authenticate(email, password);
+            if(account == null) {
+                return null;
+            }
             UserRepository userRepository = new UserRepository();
             try {
                 User user = userRepository.findByFk(account.getId());
