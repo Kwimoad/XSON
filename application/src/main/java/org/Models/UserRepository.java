@@ -23,9 +23,8 @@ public class UserRepository implements BaseRepository<User> {
     //@Override
     public User add(User o, Account account) throws SQLException {
         String sql = "INSERT INTO User(firstName, lastName, gender, dateOfBirth, accountID) values(?,?,?,?,?)";
-        Connection cn = DatabaseConnection.getInstance().getConnection();
         try(
-                //Connection cn = DatabaseConnection.getInstance().getConnection();
+                Connection cn = DatabaseConnection.getInstance().getConnection();
                 PreparedStatement ps = cn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         ){
             ps.setString(1, o.getFirstName());
@@ -55,9 +54,8 @@ public class UserRepository implements BaseRepository<User> {
     @Override
     public boolean remove(User o) throws SQLException {
         String sql = "DELETE FROM User where UserID=?";
-        Connection cn = DatabaseConnection.getInstance().getConnection();
         try(
-                //Connection cn = DatabaseConnection.getInstance().getConnection();
+                Connection cn = DatabaseConnection.getInstance().getConnection();
                 PreparedStatement ps = cn.prepareStatement(sql);
         ){
             ps.setInt(1, o.getId());
@@ -78,9 +76,8 @@ public class UserRepository implements BaseRepository<User> {
     @Override
     public boolean update(User o) throws SQLException {
         String sql = "UPDATE `User` set Firstname=?, Lastname=?, Gender=?, Dateofbirth=? where UserID = ?";
-        Connection cn = DatabaseConnection.getInstance().getConnection();
         try(
-                //Connection cn = DatabaseConnection.getInstance().getConnection();
+                Connection cn = DatabaseConnection.getInstance().getConnection();
                 PreparedStatement ps = cn.prepareStatement(sql);
         ){
             ps.setString(1, o.getFirstName());
@@ -106,9 +103,8 @@ public class UserRepository implements BaseRepository<User> {
     @Override
     public User findById(int id) throws SQLException {
         String sql = "SELECT * FROM User WHERE UserID = ?";
-        Connection cn = DatabaseConnection.getInstance().getConnection();
         try (
-                //Connection cn = DatabaseConnection.getInstance().getConnection();
+                Connection cn = DatabaseConnection.getInstance().getConnection();
                 PreparedStatement ps = cn.prepareStatement(sql);
         ) {
             ps.setInt(1, id);
@@ -139,9 +135,8 @@ public class UserRepository implements BaseRepository<User> {
      */
     public User findByFk(int fk) throws SQLException {
         String sql = "SELECT * FROM User WHERE AccountID = ?";
-        Connection cn = DatabaseConnection.getInstance().getConnection();
         try (
-                //Connection cn = DatabaseConnection.getInstance().getConnection();
+                Connection cn = DatabaseConnection.getInstance().getConnection();
                 PreparedStatement ps = cn.prepareStatement(sql);
         ) {
             ps.setInt(1, fk);

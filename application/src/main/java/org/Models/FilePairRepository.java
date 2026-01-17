@@ -24,9 +24,8 @@ public class FilePairRepository {
      */
     public boolean add(FilePair o) throws SQLException {
         String sql = "INSERT INTO FilePairs(LastModified, ArchivesID, XmlFileID, JsonFileID) values(?,?,?,?)";
-        Connection cn = DatabaseConnection.getInstance().getConnection();
         try(
-                //Connection cn = DatabaseConnection.getInstance().getConnection();
+                Connection cn = DatabaseConnection.getInstance().getConnection();
                 PreparedStatement ps = cn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         ){
             ps.setDate(1, o.getLastModified());
@@ -50,9 +49,8 @@ public class FilePairRepository {
     public List<Date> findGroupDate(Archives archives) throws SQLException {
         List<Date> dates = new ArrayList<>();
         String sql = "SELECT DISTINCT LastModified FROM FilePairs ORDER BY LastModified where ArchivesID = ?";
-        Connection cn = DatabaseConnection.getInstance().getConnection();
         try (
-                //Connection cn = DatabaseConnection.getInstance().getConnection();
+                Connection cn = DatabaseConnection.getInstance().getConnection();
                 PreparedStatement ps = cn.prepareStatement(sql);
         ) {
             ps.setInt(1, archives.getId());
@@ -84,9 +82,8 @@ public class FilePairRepository {
                         "    SELECT ArchivesID FROM Archives WHERE ArchivesID = ? " +
                         ") " +
                         "ORDER BY fp.LastModified";
-        Connection cn = DatabaseConnection.getInstance().getConnection();
         try (
-                //Connection cn = DatabaseConnection.getInstance().getConnection();
+                Connection cn = DatabaseConnection.getInstance().getConnection();
                 PreparedStatement ps = cn.prepareStatement(sql)
         ) {
             ps.setInt(1, archiveID);

@@ -14,6 +14,9 @@ public class ResourceDB {
     private String url;
     private String user;
     private String password;
+    private int maxSize;
+    private int minSize;
+    private int maxIdleTime;
 
     /**
      * Constructor: loads database properties from "application.properties" file.
@@ -28,6 +31,9 @@ public class ResourceDB {
             url = props.getProperty("db.url");
             user = props.getProperty("db.user");
             password = props.getProperty("db.password");
+            maxSize = Integer.parseInt(props.getProperty("db.pool.max-size"));
+            minSize = Integer.parseInt(props.getProperty("db.pool.min-size"));
+            maxIdleTime = Integer.parseInt(props.getProperty("db.pool.max-idle-time"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -42,6 +48,7 @@ public class ResourceDB {
     }
 
     /**
+     * Sets the database driver.
      *
      * @param driver
      */
@@ -58,6 +65,7 @@ public class ResourceDB {
     }
 
     /**
+     * Sets the database URL.
      *
      * @param url
      */
@@ -74,6 +82,7 @@ public class ResourceDB {
     }
 
     /**
+     * Sets the database username.
      *
      * @param user
      */
@@ -91,10 +100,65 @@ public class ResourceDB {
 
     /**
      *
+     * Sets the database password.
+     *
      * @param password
      */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * Gets the maximum pool size.
+     *
+     * @return maxSize
+     */
+    public int getMaxSize() {
+        return maxSize;
+    }
+
+    /**
+     * Sets the maximum pool size.
+     *
+     * @param maxSize
+     */
+    public void setMaxSize(int maxSize) {
+        this.maxSize = maxSize;
+    }
+
+    /**
+     * Gets the minimum pool size.
+     *
+     * @return minSize
+     */
+    public int getMinSize() {
+        return minSize;
+    }
+
+    /**
+     * Sets the minimum pool size.
+     *
+     * @param minSize
+     */
+    public void setMinSize(int minSize) {
+        this.minSize = minSize;
+    }
+
+    /**
+     * Gets the maximum idle time for connections in the pool.
+     *
+     * @return maxIdleTime
+     */
+    public int getMaxIdleTime() {
+        return maxIdleTime;
+    }
+
+    /**
+     * Sets the maximum idle time for connections in the pool.
+     *
+     * @param maxIdleTime
+     */
+    public void setMaxIdleTime(int maxIdleTime) {
+        this.maxIdleTime = maxIdleTime;
+    }
 }

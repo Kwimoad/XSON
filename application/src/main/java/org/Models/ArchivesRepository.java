@@ -18,9 +18,8 @@ public class ArchivesRepository implements BaseRepository<Archives> {
      */
     public Archives add() throws SQLException {
         String sql = "INSERT INTO Archives VALUES ()";
-        Connection cn = DatabaseConnection.getInstance().getConnection();
         try (
-                //Connection cn = DatabaseConnection.getInstance().getConnection();
+                Connection cn = DatabaseConnection.getInstance().getConnection();
                 PreparedStatement ps = cn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
         ) {
             ps.executeUpdate();

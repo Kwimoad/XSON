@@ -21,9 +21,8 @@ public class ArchivesUsersRepository {
      */
     public boolean add(User user, Archives archives) throws SQLException {
         String sql = "INSERT INTO ArchivesUser VALUES (?,?)";
-        Connection cn = DatabaseConnection.getInstance().getConnection();
         try(
-                //Connection cn = DatabaseConnection.getInstance().getConnection();
+                Connection cn = DatabaseConnection.getInstance().getConnection();
                 PreparedStatement ps = cn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         ){
             ps.setInt(1, user.getId());
@@ -48,15 +47,15 @@ public class ArchivesUsersRepository {
     public int findByUserId(int userID) {
         int archivesId = -1;
         String sql = "SELECT ArchivesID FROM ArchivesUser WHERE UserID = ?";
-        Connection cn = DatabaseConnection.getInstance().getConnection();
         try (
-                //Connection cn = DatabaseConnection.getInstance().getConnection();
+                Connection cn = DatabaseConnection.getInstance().getConnection();
                 PreparedStatement ps = cn.prepareStatement(sql)
         ) {
             ps.setInt(1, userID);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                archivesId = rs.getInt("ArchivesID");
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    archivesId = rs.getInt("ArchivesID");
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();

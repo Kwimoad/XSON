@@ -22,9 +22,8 @@ public class FileInformationRepository implements BaseRepository<FileInformation
     public FileInformation add(FileInformation o, int archiveId) throws SQLException {
         String sql = "INSERT INTO Fileinformation(fileName, filePath, lastModification, extension, ArchivesID) VALUES (?, ?, ?, ?, ?)";
         FileInformation fileInformation = null;
-        Connection cn = DatabaseConnection.getInstance().getConnection();
         try (
-                //Connection cn = DatabaseConnection.getInstance().getConnection();
+                Connection cn = DatabaseConnection.getInstance().getConnection();
                 PreparedStatement ps = cn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         ) {
             ps.setString(1, o.getFileName());
@@ -67,9 +66,8 @@ public class FileInformationRepository implements BaseRepository<FileInformation
     @Override
     public boolean remove(FileInformation o) throws SQLException {
         String sql = "DELETE FROM Fileinformation where FileinformationID=?";
-        Connection cn = DatabaseConnection.getInstance().getConnection();
         try(
-                //Connection cn = DatabaseConnection.getInstance().getConnection();
+                Connection cn = DatabaseConnection.getInstance().getConnection();
                 PreparedStatement ps = cn.prepareStatement(sql);
         ){
             ps.setInt(1, o.getId());
